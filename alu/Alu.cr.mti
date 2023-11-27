@@ -1,0 +1,41 @@
+C:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity n_bit_adder
+-- Compiling architecture Structural of n_bit_adder
+
+} {} {}} C:/Users/HIMA/source/repos/Arch-Project/alu/one-bit-adder.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/HIMA/source/repos/Arch-Project/alu/one-bit-adder.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity one_bit_adder
+-- Compiling architecture Structural of one_bit_adder
+
+} {} {}} C:/Users/HIMA/source/repos/Arch-Project/alu/full-adder.vhdl {0 {vcom -work work -2002 -explicit -stats=none C:/Users/HIMA/source/repos/Arch-Project/alu/full-adder.vhdl
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+** Error (suppressible): C:/Users/HIMA/source/repos/Arch-Project/alu/full-adder.vhdl(1): (vcom-1491) Empty source files.
+
+} {} {}} C:/Users/HIMA/source/repos/Arch-Project/alu/mux.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/HIMA/source/repos/Arch-Project/alu/mux.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity GenericMux
+-- Compiling architecture Behavioral of GenericMux
+
+} {} {}} C:/Users/HIMA/source/repos/Arch-Project/alu/alu.vhdl {0 {vcom -work work -2002 -explicit -stats=none C:/Users/HIMA/source/repos/Arch-Project/alu/alu.vhdl
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+** Error (suppressible): C:/Users/HIMA/source/repos/Arch-Project/alu/alu.vhdl(1): (vcom-1491) Empty source files.
+
+} {} {}}
