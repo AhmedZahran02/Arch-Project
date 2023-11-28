@@ -137,26 +137,69 @@ R27
 !i113 1
 R13
 R14
-Etestbench_genericmux
-Z28 w1701100670
+Esignextend
+Z28 w1701197806
 R2
 R3
 R4
 R5
 R0
-Z29 8C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd
-Z30 FC:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd
+Z29 8C:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd
+Z30 FC:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd
+l0
+L6
+VoMKB]mZ9]F]6HnZ9Re@Th0
+!s100 =A=Va:YT3MQ7@dhVNBNPT2
+R8
+32
+Z31 !s110 1701197813
+!i10b 1
+Z32 !s108 1701197813.000000
+Z33 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd|
+Z34 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd|
+!i113 1
+R13
+R14
+Abehavioral
+R2
+R3
+R4
+R5
+Z35 DEx4 work 10 signextend 0 22 oMKB]mZ9]F]6HnZ9Re@Th0
+l18
+L17
+Z36 VR4?:ZBBIXQAS9Q7>VSkan2
+Z37 !s100 hAnW_:`DM7MF[3Nma53z62
+R8
+32
+R31
+!i10b 1
+R32
+R33
+R34
+!i113 1
+R13
+R14
+Etestbench_genericmux
+Z38 w1701100670
+R2
+R3
+R4
+R5
+R0
+Z39 8C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd
+Z40 FC:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd
 l0
 L7
 VW`PNkTjXD3AIokd1`iJWZ2
 !s100 RC0<CaF_@W:>aN4H=DDj02
 R8
 32
-Z31 !s110 1701100682
+Z41 !s110 1701100682
 !i10b 1
-Z32 !s108 1701100682.000000
-Z33 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd|
-Z34 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd|
+Z42 !s108 1701100682.000000
+Z43 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd|
+Z44 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd|
 !i113 1
 R13
 R14
@@ -166,18 +209,18 @@ R2
 R3
 R4
 R5
-Z35 DEx4 work 20 testbench_genericmux 0 22 W`PNkTjXD3AIokd1`iJWZ2
+DEx4 work 20 testbench_genericmux 0 22 W`PNkTjXD3AIokd1`iJWZ2
 l20
 L10
 V^FI<<P233ff[R0<;1zolh2
 !s100 W6d3M6`8a;`9ROkTl33EK3
 R8
 32
-R31
+R41
 !i10b 1
-R32
-R33
-R34
+R42
+R43
+R44
 !i113 1
 R13
 R14
