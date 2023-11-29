@@ -23,8 +23,6 @@ entity memory is
 end memory;
 
 architecture memory_architecture of memory is
-
-    --variable protected_bit : std_logic_vector(2**ADDRESS_BUS_SIZE - 1 downto 0);
     TYPE ram_type IS ARRAY(0 TO 2**ADDRESS_BUS_SIZE) of std_logic_vector(DATA_BUS_SIZE - 1 DOWNTO 0);
     signal ram : ram_type;
     signal protect_bit : std_logic_vector(2**ADDRESS_BUS_SIZE - 1 downto 0);

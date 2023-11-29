@@ -6,7 +6,9 @@ USE ieee.numeric_std.ALL;
 
 ENTITY genReg IS
     GENERIC (
-        REG_SIZE : INTEGER := 32
+        REG_SIZE : INTEGER := 32;
+        -- MoA : i need this for the stack pointer to be initialy = 2^12 - 1
+        RESET_VALUE : Integer := 0
     );
     PORT (
         dataIn : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
@@ -23,12 +25,15 @@ BEGIN
 
     PROCESS (clk)
     BEGIN
-        IF (rst = '1') THEN -- may be modified to this   IF (rst = '1' AND writeEnable = '1') THEN
-            tempDataOut <= (OTHERS => '0');
-        ELSE
-            IF (writeEnable = '1') THEN
-                tempDataOut <= dataIn;
+        -- moa u forgot to check posedge
+        if rising_edge(clk) then
+            IF (rst = '1') THEN -- may be modified to this   IF (rst = '1' AND writeEnable = '1') THEN
+                tempDataOut <= std_logic_vector(to_unsigned(RESET_VALUE, REG_SIZE));
+            ELSE
+                IF (writeEnable = '1') THEN
+                    tempDataOut <= dataIn;
+                END IF;
             END IF;
-        END IF;
+        end if;
     END PROCESS;
 END Behavioral;
