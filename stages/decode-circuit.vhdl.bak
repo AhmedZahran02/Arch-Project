@@ -82,8 +82,6 @@ ARCHITECTURE decode_stage_architecture OF decode_stage IS
     SIGNAL input_port_select_out : STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
     SIGNAL is_call_operation_out : STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
 
-    SIGNAL temp_signal_con : STD_LOGIC_VECTOR(19 DOWNTO 0);
-
 BEGIN
 
     -- ==================================== Wires Connection ====================================
@@ -94,7 +92,6 @@ BEGIN
     has_immediate_value <= control_signals_in(18);
     is_call_operation <= control_signals_in(20);
     write_back_register_address <= op_code(10 DOWNTO 8);
-    temp_signal_con <= op_code(7 DOWNTO 4) & instruction;
     read_register_1_address <= op_code(7 DOWNTO 5) WHEN is_one_operand = '0' ELSE
         op_code(10 DOWNTO 8);
     read_register_2_address <= op_code(4 DOWNTO 2);
@@ -139,7 +136,7 @@ BEGIN
     );
     extend_effective_address : SignExtend GENERIC MAP(
         20, REG_SIZE) PORT MAP(
-        Input => temp_signal_con,
+        Input => (instruction),
         Output => extended_effective_address
     );
     extend_rotate_value : SignExtend GENERIC MAP(
