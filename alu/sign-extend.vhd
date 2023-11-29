@@ -14,7 +14,7 @@ entity SignExtend is
     );
 end entity SignExtend;
 
-architecture Behavioral of SignExtend is
+architecture Structural of SignExtend is
 begin
     process (Input)
         variable sign_bit : std_logic;
@@ -30,5 +30,5 @@ begin
         -- assigning the input to the output after extendeing
         Output(OutputWidth - InputWidth - 1 downto 0) <= Input;
     end process;
-end architecture Behavioral;
+end architecture Structural;
 

@@ -20,7 +20,10 @@ architecture Behavioral of GenericMux is
         variable result : natural := 0;
     begin
         for i in bin_val'range loop
-            result := result * 2 + (others => '0' when bin_val(i) = '0' else '1');
+            result := result * 2;
+            if bin_val(i) = '1' then
+                result := result + 1;
+            end if;
         end loop;
         return result;
     end function;

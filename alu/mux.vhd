@@ -15,7 +15,7 @@ entity GenericMux is
     );
 end entity GenericMux;
 
-architecture Behavioral of GenericMux is
+architecture Structural of GenericMux is
     function binary_to_integer(bin_val : std_logic_vector) return natural is
         variable result : natural := 0;
     begin
@@ -41,5 +41,5 @@ begin
             Output(i) <= Inputs(SelectedIndex * M + i);
         end loop;
     end process;
-end architecture Behavioral;
+end architecture Structural;
 
