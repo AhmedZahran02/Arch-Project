@@ -12,7 +12,10 @@ entity processor is
             data_memory_address : out std_logic_vector(11 downto 0);
 
             port_in : in std_logic_vector(31 downto 0);
-            port_out : out std_logic_vector(31 downto 0)
+            port_out : out std_logic_vector(31 downto 0)ك
+
+            interrupt_signal : in std_logic;
+            reset_signal : in std_logic;
         
         );
 end processor;
