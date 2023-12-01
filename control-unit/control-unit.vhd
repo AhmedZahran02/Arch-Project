@@ -13,6 +13,10 @@ ARCHITECTURE controlUnit_architecture OF controlUnit IS
 BEGIN
 PROCESS (opCode)
 BEGIN
+
+-- Initialize
+controlSignals <= (OTHERS => '0');
+
 CASE opCode IS
 -- NOP
 WHEN "00000" =>

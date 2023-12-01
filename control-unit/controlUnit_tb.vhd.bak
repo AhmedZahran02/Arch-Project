@@ -1,0 +1,63 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY controlUnit_tb IS
+END testbench_controlUnit;
+
+ARCHITECTURE controlUnit_tb_architecture OF controlUnit_tb IS
+  SIGNAL clk : STD_LOGIC := '0';
+  SIGNAL rst : STD_LOGIC := '0';
+  SIGNAL opCode : STD_LOGIC_VECTOR(4 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL controlSignals : STD_LOGIC_VECTOR(21 DOWNTO 0);
+
+  COMPONENT controlUnit
+    PORT (
+      opCode : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
+      controlSignals : OUT STD_LOGIC_VECTOR(21 DOWNTO 0)
+    );
+  END COMPONENT;
+
+BEGIN
+
+  uut: controlUnit
+    PORT MAP (
+      opCode => opCode,
+      controlSignals => controlSignals
+    );
+
+  -- Clock process
+  clk_process: PROCESS
+  BEGIN
+    WAIT FOR 5 ns;
+    clk <= NOT clk;
+  END PROCESS;
+
+  -- Reset process
+  reset_process: PROCESS
+  BEGIN
+    rst <= '1';
+    WAIT FOR 10 ns;
+    rst <= '0';
+    WAIT;
+  END PROCESS;
+
+  -- Stimulus process
+  stimulus_process: PROCESS
+  BEGIN
+    WAIT UNTIL rising_edge(clk);
+
+    -- Test NOP opcode
+    opCode <= "00000";
+    WAIT FOR 10 ns;
+
+    -- Test NOT opcode
+    opCode <= "00001";
+    WAIT FOR 10 ns;
+
+    -- Add more tests for other opcodes as needed
+
+    -- End simulation after a few cycles
+    WAIT;
+  END PROCESS;
+
+END controlUnit_tb_architecture;

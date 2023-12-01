@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus Prime"
 -- VERSION "Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
 
--- DATE "12/01/2023 09:08:32"
+-- DATE "12/01/2023 09:54:25"
 
 -- 
 -- Device: Altera 5CGXFC7C7F23C8 Package FBGA484
@@ -36,7 +36,7 @@ USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY 	controlUnit IS
     PORT (
 	opCode : IN std_logic_vector(4 DOWNTO 0);
-	controlSignals : OUT std_logic_vector(21 DOWNTO 0)
+	controlSignals : BUFFER std_logic_vector(21 DOWNTO 0)
 	);
 END controlUnit;
 
