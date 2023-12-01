@@ -1,26 +1,24 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_ARITH.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-entity processor is
-    Port (
-            instruction_memory_data : in std_logic_vector(15 downto 0);
-            instruction_memory_address : out std_logic_vector(11 downto 0);
+ENTITY processor IS
+PORT (
+instruction_memory_data : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+instruction_memory_address : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
 
-            data_memory_data : in std_logic_vector(31 downto 0);
-            data_memory_address : out std_logic_vector(11 downto 0);
+data_memory_data : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+data_memory_address : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
 
-            port_in : in std_logic_vector(31 downto 0);
-            port_out : out std_logic_vector(31 downto 0)ك
+port_in : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+port_out : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+interrupt_signal : IN STD_LOGIC;
+reset_signal : IN STD_LOGIC
+);
+END processor;
 
-            interrupt_signal : in std_logic;
-            reset_signal : in std_logic;
-        
-        );
-end processor;
+ARCHITECTURE arch OF processor IS
+BEGIN
 
-architecture arch of processor is
-begin
-    
-end arch;
+END arch;
