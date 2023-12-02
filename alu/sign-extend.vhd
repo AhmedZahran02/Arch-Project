@@ -5,8 +5,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity SignExtend is
     generic (
-        InputWidth  : positive := 8;  -- Width of the input signal
-        OutputWidth : positive := 16  -- Width of the output signal
+        InputWidth  : positive := 4;  -- Width of the input signal
+        OutputWidth : positive := 32  -- Width of the output signal
     );
     port (
         Input  : in  std_logic_vector(InputWidth - 1 downto 0);

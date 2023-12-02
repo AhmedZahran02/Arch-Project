@@ -15,7 +15,6 @@ port(
 	Sel: in std_logic_vector(SelSize - 1 downto 0);
 	FlagsIn:in std_logic_vector(2 downto 0);
 	FlagsOut:out std_logic_vector(2 downto 0) ;
-	Imm : in INTEGER := 2;
 	DataOut : out std_logic_vector(n - 1 downto 0));
 
 end entity alu;
@@ -43,49 +42,143 @@ component GenericMux is
     );
 end component GenericMux;
 
+    function binary_to_integer(bin_val : std_logic_vector) return natural is
+        variable result : natural := 0;
+    begin
+        for i in bin_val'range loop
+            result := result * 2;
+            if bin_val(i) = '1' then
+                result := result + 1;
+            end if;
+        end loop;
+        return result;
+    end function;
 
-
-signal AND_OUT,OR_OUT,XOR_OUT,ADD_OUT,SUB_OUT,Neg_OUT,RR_OUT,Data1_Bar,Data2_Bar :std_logic_vector(n-1 downto 0);
-signal RL_OUT :std_logic_vector(n - 1 downto 0);
+signal NOP,INC_OUT,DEC_OUT,AND_OUT,OR_OUT,XOR_OUT,ADD_OUT,SUB_OUT,Neg_OUT,Data1_Bar,Data2_Bar,BITSET_OUT,buff :std_logic_vector(n-1 downto 0);
+signal RR_OUT,RL_OUT,RL,RR :std_logic_vector(n downto 0);
 signal Mux_Input  : std_logic_vector(2**SelSize * n - 1 downto 0);
-signal Z1,Z2,Z3,C1,C2,C3,N1,N2,N3,dummy1 : std_logic;
+signal C1_inc,C1_add,C1_sub,C1_dec,C1_setbit,C1_RR,C1_RL,dummy1,dummy2 : std_logic;
+signal Index, anotherIndex,currentbit : natural;
+signal oneVector: std_logic_vector(n - 1 downto 0) := "00000000000000000000000000000001";
+signal dummy32: std_logic_vector(n - 1 downto 0) := "00000000000000000000000000000000";--- you can remove the dummy if you want to add a new operation
 
 begin
 
+
+--NOP => 0000
+NOP <= X"00000000";
+
+--NOT op1 => 0001
 Data1_Bar <= not Data1;
 Data2_Bar <= not Data2;
 
+--NEG op1 => 0010
 Neg_OUT <= (not Data1) + "1"; 
 
+--INC op1 => 0011
+increment: n_bit_adder GENERIC MAP (n) port map (Data1,(others=>'0'),'1',INC_OUT,C1_inc);
+
+--DEC op1 => 0100
+decrement: n_bit_adder GENERIC MAP (n) port map (Data1,(others=>'1'),'0',DEC_OUT,dummy1);
+
+--op1 => 0101
+--op2 => 0110
+
+--add op1 op2 => 0111
+addition: n_bit_adder GENERIC MAP (n) port map (Data1,Data2,'0',ADD_Out,C1_add);
+
+--sub op1 op2 => 1000
+subtraction: n_bit_adder GENERIC MAP (n) port map (Data1,Data2_Bar,'1',SUB_OUT,dummy2);
+
+
+C1_dec <= '1' when Sel = "0100" and Data1 <= 0
+	else '0';
+C1_sub <= '1' when Sel = "1000" and Data2 < Data1
+	else '0';
+
+--and op1 op2 => 1001
 AND_OUT <= Data1 AND Data2;
+
+--or op1 op2 => 1010
 OR_OUT <= Data1 OR Data2;
+
+--xor op1 op2 => 1011
 XOR_OUT <= Data1 XOR Data2;
 
--- Rotate Right operation with carry
---RR_OUT(n - 1) <= FlagsIn(2);              
---RR_OUT(n - 2 downto 0) <= Data1(n - 1 downto 1);
---C2 <= Data1(0);-----> carry  
+--Bitset op1 op2 => 1100
+process (Data1,Sel)
+begin
+        currentbit <= binary_to_integer(Data2);
+end process;
 
--- Rotate left operation with carry
---RL_OUT(0) <= FlagsIn(2);              
---RL_OUT(n downto 1) <= Data1(n - 1 downto 0); 
---C3 <= RL_OUT(n - 1);  -----> carry
+process(Data1, currentbit)
+        variable temp_result : STD_LOGIC_VECTOR(n - 1 downto 0);
+    begin
+        if currentbit >= 0 and currentbit <= n - 1 then
+            temp_result := Data1;
+            temp_result(currentbit) := '1';
+     
+            BITSET_OUT <= temp_result;
+        else
+            BITSET_OUT <= Data1;
+        end if;
+end process;
 
--- RCL operation
-RL_OUT(n - 1 downto Imm ) <= Data1(n-1 - Imm downto 0);
-RL_OUT(Imm - 1 downto 0) <= Data1(N-1 downto N - Imm);
---C3 <= Data1(N-1 - Imm);
+C1_setbit <= '1';
+--RCL op1 op1 => 1101
+process (Data1, Data2,Sel)
+begin
+	RL(0) <= FlagsIn(2);
+	RL(n downto 1) <= Data1(n - 1 downto 0);
+        anotherIndex <= binary_to_integer(Data2);
+end process;
 
--- RCR operation
--- Uncomment the following lines for RCR
--- temp_result <= Rsrc(7 - Imm downto 0) & Rsrc(7 downto 8 - Imm);
--- temp_carry <= Rsrc(7 downto 8 - Imm)(7);
+process (Data1, Data2, anotherIndex)
+begin
+        RL_OUT (anotherIndex - 1 downto 0) <= RL(n downto n - anotherIndex + 1);
+	RL_OUT (n downto anotherIndex) <= RL(n - anotherIndex downto 0);
+end process;
 
-Mux_Input <= RL_OUT & RR_OUT & SUB_OUT & ADD_Out & XOR_OUT & OR_OUT & AND_OUT & Neg_OUT & Data1_Bar;
+C1_RL <= RL_OUT(0);
 
-addition: n_bit_adder GENERIC MAP (n) port map (Data1,Data2,'0',ADD_Out,C1);
+--RCR op1 op1 => 1110
+process (Data1, Data2,Sel)
+begin
+	RR(0) <= FlagsIn(2);
+	RR(n downto 1) <= Data1(n - 1 downto 0);
+        Index <= binary_to_integer(Data2);
+end process;
 
-subtraction: n_bit_adder GENERIC MAP (n) port map (Data1,Data2_Bar,'1',SUB_OUT,dummy1);
+process (Data1, Data2, Index)
+begin
+        RR_OUT (n downto n - Index + 1) <= RR(Index - 1 downto 0);
+	RR_OUT (n - Index downto 0) <= RR(n downto Index);
+end process;
 
-selectTheOutput: GenericMux GENERIC MAP (n,SelSize) port map (Mux_Input,Sel,DataOut);
+C1_RR <= RR_OUT(0);
+
+Mux_Input <= dummy32 & RR_OUT (n  downto 1)&RL_OUT (n  downto 1)& BITSET_OUT  & XOR_OUT & OR_OUT & AND_OUT &SUB_OUT & ADD_Out & Data2 & Data1 & DEC_OUT& INC_OUT & Neg_OUT & Data1_Bar &  NOP;
+
+selectTheOutput: GenericMux GENERIC MAP (n,SelSize) port map (Mux_Input,Sel,buff);
+
+--carry flag
+FlagsOut(2) <= C1_inc when  Sel="0011"
+	else C1_dec when Sel = "0100"  
+	else C1_add when Sel = "0111" 
+	else C1_sub when Sel = "1000"
+	else C1_setbit when Sel = "1100" 
+  	else C1_RL when Sel = "1101" 
+	else C1_RR when Sel = "1110" 
+	else FlagsIn(2) ;
+
+--negative flag
+FlagsOut(1) <= buff(n - 1) when Sel /= "1111" 
+    else FlagsIn(1);
+
+--zero flag
+FlagsOut(0) <= '1' When buff = "00000000000000000000000000000000" and Sel /= "0000" -- NOP
+else '0' ;
+
+DataOut <= buff;
+
 end architecture Structural;

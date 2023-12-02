@@ -5,8 +5,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity SignExtend is
     generic (
-        InputWidth  : positive := 8;  -- Width of the input signal
-        OutputWidth : positive := 16  -- Width of the output signal
+        InputWidth  : positive := 4;  -- Width of the input signal
+        OutputWidth : positive := 32  -- Width of the output signal
     );
     port (
         Input  : in  std_logic_vector(InputWidth - 1 downto 0);
@@ -14,7 +14,7 @@ entity SignExtend is
     );
 end entity SignExtend;
 
-architecture Behavioral of SignExtend is
+architecture Structural of SignExtend is
 begin
     process (Input)
         variable sign_bit : std_logic;
@@ -28,7 +28,7 @@ begin
         end if;
 
         -- assigning the input to the output after extendeing
-        Output(OutputWidth - InputWidth - 1 downto 0) <= Input;
+        Output( InputWidth - 1 downto 0) <= Input;
     end process;
-end architecture Behavioral;
+end architecture Structural;
 
