@@ -28,7 +28,7 @@ begin
         end if;
 
         -- assigning the input to the output after extendeing
-        Output(OutputWidth - InputWidth - 1 downto 0) <= Input;
+        Output(InputWidth - 1 downto 0) <= Input;
     end process;
 end architecture Structural;
 

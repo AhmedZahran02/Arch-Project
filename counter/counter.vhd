@@ -20,7 +20,7 @@ ARCHITECTURE counter_archticture OF counter IS
 SIGNAL counter_reg : STD_LOGIC_VECTOR(n - 1 DOWNTO 0) := (OTHERS => '0');
 SIGNAL isNotZero : STD_LOGIC := '0';
 BEGIN
-PROCESS (clk, reset)
+PROCESS (clk, reset) -- this is async not sync
 BEGIN
 IF reset = '1' THEN
 counter_reg <= (OTHERS => '0');

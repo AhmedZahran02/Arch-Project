@@ -5,8 +5,7 @@ USE IEEE.numeric_std.all;
 entity memory_stage is
     generic (
         DATA_SIZE : integer := 32; 
-        ADDRESS_BUS_SIZE : integer := 12;
-        SP_STEP : integer := 1;
+        SP_STEP : integer := 2;
         FLAGS_COUNT : integer := 4
     );
     Port (
@@ -39,13 +38,10 @@ end memory_stage;
 architecture memory_stage_architecture of memory_stage is
 
     component memory is
-        Generic ( 
-            DATA_BUS_SIZE : integer := 32; 
-            ADDRESS_BUS_SIZE : integer := 12 
-        ); 
         Port (
-                input_data_bus : in std_logic_vector(DATA_BUS_SIZE - 1 downto 0);
-                address_bus : in std_logic_vector(ADDRESS_BUS_SIZE - 1 downto 0);
+                input_data_bus : in std_logic_vector(31 downto 0);
+                address_bus : in std_logic_vector(11 downto 0);
+                extra_address : in std_logic;
                 --================================================================
                 write_enable : in std_logic;
                 free_enable : in std_logic;
@@ -53,7 +49,7 @@ architecture memory_stage_architecture of memory_stage is
                 clk : in std_logic;
                 reset : in std_logic;
                 --================================================================
-                output_data_bus: out std_logic_vector(DATA_BUS_SIZE - 1 downto 0)
+                output_data_bus: out std_logic_vector(31 downto 0)
             );
     end component;
 
@@ -109,9 +105,10 @@ begin
                   address;
     -- ==================================== Components Init ====================================
 
-    data_memory : memory generic map(DATA_SIZE,ADDRESS_BUS_SIZE) port map (
+    data_memory : memory generic map(2) port map (
         input_data_bus => memory_data_select,
-        address_bus => address_select(ADDRESS_BUS_SIZE - 1 downto 0),
+        address_bus => address_select(11 downto 0),
+        extra_address => '1',
         --================================================================
         write_enable => write_enable,
         free_enable => free_address,
@@ -122,7 +119,7 @@ begin
         output_data_bus => memory_data_out
     );
 
-    stack_pointer : genReg generic map(DATA_SIZE,2**ADDRESS_BUS_SIZE - 1) port map(
+    stack_pointer : genReg generic map(DATA_SIZE,4094) port map(
         dataIn => stack_pointer_in,
         writeEnable => is_stack_operation,
         clk => clk,

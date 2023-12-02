@@ -1,8 +1,7 @@
 
-vsim memory_stage -gui -gDATA_SIZE=8 -gADDRESS_BUS_SIZE=2
+vsim memory_stage -gui
 
 add wave -position end  sim:/memory_stage/DATA_SIZE
-add wave -position end  sim:/memory_stage/ADDRESS_BUS_SIZE
 add wave -position end  sim:/memory_stage/SP_STEP
 add wave -position end  sim:/memory_stage/FLAGS_COUNT
 add wave -position end  sim:/memory_stage/memory_data_in
@@ -32,8 +31,8 @@ run 10 ps
 
 
 #test case 1: reseting
-force -freeze sim:/memory_stage/memory_data_in 10101010 0
-force -freeze sim:/memory_stage/address 00000010 0
+force -freeze sim:/memory_stage/memory_data_in 10101010101010101010101010101010 0
+force -freeze sim:/memory_stage/address 00000000000000000000000000000000 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 0 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -50,9 +49,9 @@ run
 
 
 
-#test case 2: writing to memory location number 00
-force -freeze sim:/memory_stage/memory_data_in 10101010 0
-force -freeze sim:/memory_stage/address 00000000 0
+#test case 2: writing to memory location number 0
+force -freeze sim:/memory_stage/memory_data_in 10101010101010101010101010101010 0
+force -freeze sim:/memory_stage/address 00000000000000000000000000000000 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 1 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -69,8 +68,8 @@ run
 
 
 #test case 3: pushing some data
-force -freeze sim:/memory_stage/memory_data_in 10011001 0
-force -freeze sim:/memory_stage/address 00000000 0
+force -freeze sim:/memory_stage/memory_data_in 10011001100110011001100110011001 0
+force -freeze sim:/memory_stage/address 00000000000000000000000000000000 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 1 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -85,9 +84,9 @@ run
 
 
 
-#test case 4: read address 4
-force -freeze sim:/memory_stage/memory_data_in 10011001 0
-force -freeze sim:/memory_stage/address 00000011 0
+#test case 4: read address 2^12 - 2
+force -freeze sim:/memory_stage/memory_data_in 10011001100110011001100110011001 0
+force -freeze sim:/memory_stage/address 11111111111111111111111111111110 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 0 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -103,8 +102,8 @@ run
 
 
 #test case 5: pop stack
-force -freeze sim:/memory_stage/memory_data_in 10011001 0
-force -freeze sim:/memory_stage/address 00000011 0
+force -freeze sim:/memory_stage/memory_data_in 10011001100110011001100110011001 0
+force -freeze sim:/memory_stage/address 11111111111111111111111111111110 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 0 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -120,8 +119,8 @@ run
 
 
 #test case 6: push flags
-force -freeze sim:/memory_stage/memory_data_in 10011001 0
-force -freeze sim:/memory_stage/address 00000011 0
+force -freeze sim:/memory_stage/memory_data_in 10011001100110011001100110011001 0
+force -freeze sim:/memory_stage/address 11111111111111111111111111111110 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 1 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -136,8 +135,8 @@ run
 
 
 #test case 7: read flags
-force -freeze sim:/memory_stage/memory_data_in 10011001 0
-force -freeze sim:/memory_stage/address 00000011 0
+force -freeze sim:/memory_stage/memory_data_in 10011001100110011001100110011001 0
+force -freeze sim:/memory_stage/address 11111111111111111111111111111110 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 0 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -153,8 +152,8 @@ run
 
 
 #test case 8: pop flags
-force -freeze sim:/memory_stage/memory_data_in 10011001 0
-force -freeze sim:/memory_stage/address 00000011 0
+force -freeze sim:/memory_stage/memory_data_in 10011001100110011001100110011001 0
+force -freeze sim:/memory_stage/address 11111111111111111111111111111110 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 0 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -171,8 +170,8 @@ run
 
 
 #test case 9: protect memory
-force -freeze sim:/memory_stage/memory_data_in 10011101 0
-force -freeze sim:/memory_stage/address 00000011 0
+force -freeze sim:/memory_stage/memory_data_in 10011101100111011001110110011101 0
+force -freeze sim:/memory_stage/address 00000000000000000000000000000000 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 0 0
 force -freeze sim:/memory_stage/protect_address 1 0
@@ -190,8 +189,8 @@ run
 
 
 #test case 10: writing to protected memory
-force -freeze sim:/memory_stage/memory_data_in 10011101 0
-force -freeze sim:/memory_stage/address 00000011 0
+force -freeze sim:/memory_stage/memory_data_in 10011101100111011001110110011101 0
+force -freeze sim:/memory_stage/address 00000000000000000000000000000000 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 1 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -208,8 +207,8 @@ run
 
 
 #test case 11: free memory
-force -freeze sim:/memory_stage/memory_data_in 10011101 0
-force -freeze sim:/memory_stage/address 00000011 0
+force -freeze sim:/memory_stage/memory_data_in 10011101100111011001110110011101 0
+force -freeze sim:/memory_stage/address 00000000000000000000000000000000 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 0 0
 force -freeze sim:/memory_stage/protect_address 0 0
@@ -226,9 +225,9 @@ run
 
 
 
-#test case 12: writing to protected memory
-force -freeze sim:/memory_stage/memory_data_in 10011101 0
-force -freeze sim:/memory_stage/address 00000011 0
+#test case 12: writing to freed memory
+force -freeze sim:/memory_stage/memory_data_in 10011101100111011001110110011101 0
+force -freeze sim:/memory_stage/address 00000000000000000000000000000000 0
 force -freeze sim:/memory_stage/input_flags 1001 0
 force -freeze sim:/memory_stage/write_enable 1 0
 force -freeze sim:/memory_stage/protect_address 0 0
