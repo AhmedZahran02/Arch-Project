@@ -11,15 +11,15 @@ ENTITY writeback_stage IS
     PORT (
         control_signals_in : IN STD_LOGIC_VECTOR(CONTROL_SIGNAL_SIZE - 1 DOWNTO 0);
         writeback_address_in : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-        writeback_data : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
+        writeback_data_in : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
         --==================================================================
         clk : IN STD_LOGIC;
         reset : IN STD_LOGIC;
         --==================================================================
         control_signals_out : OUT STD_LOGIC_VECTOR(CONTROL_SIGNAL_SIZE - 1 DOWNTO 0);
         writeback_address_out : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
-        output_port : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0)
-
+        output_port : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
+        writeback_data_out : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
     );
 END writeback_stage;
 ARCHITECTURE writeback_stage_architecture OF writeback_stage IS
@@ -29,7 +29,8 @@ BEGIN
 
     -- ==================================== Wires Connection ====================================
     output_port_select <= control_signals_in(8);
-
-    output_port <= writeback_data WHEN (output_port_select = '1');
+    writeback_data_out <= writeback_data_in;
+    writeback_address_out <= writeback_address_in;
+    output_port <= writeback_data_out WHEN (output_port_select = '1');
 
 END writeback_stage_architecture;
