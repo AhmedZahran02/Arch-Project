@@ -1,4 +1,9 @@
-D:/faculty/arch/Project/Arch-Project/alu/full-adder.vhdl {0 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/alu/full-adder.vhdl
+D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl {0 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+** Error (suppressible): D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl(1): (vcom-1491) Empty source files.
+
+} {} {}} D:/faculty/arch/Project/Arch-Project/alu/full-adder.vhdl {0 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/alu/full-adder.vhdl
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 ** Error (suppressible): D:/faculty/arch/Project/Arch-Project/alu/full-adder.vhdl(1): (vcom-1491) Empty source files.
@@ -18,16 +23,12 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package STANDARD
 ** Error (suppressible): D:/faculty/arch/Project/Arch-Project/stages/writeback-circuit.vhdl(1): (vcom-1491) Empty source files.
 
-} {} {}} D:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl
+} {} {}} D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl {0 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity memory
--- Compiling architecture memory_architecture of memory
+** Error (suppressible): D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl(1): (vcom-1491) Empty source files.
 
-} {} {}} D:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl
+} {} {}} {C:/Study/3rd Year/1st Term/CMP 25/Arch/Arch-Project/interrupt-control/interrupt_control.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Study/3rd Year/1st Term/CMP 25/Arch/Arch-Project/interrupt-control/interrupt_control.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -35,10 +36,20 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package std_logic_arith
 -- Loading package STD_LOGIC_UNSIGNED
 -- Loading package NUMERIC_STD
--- Compiling entity regFile
--- Compiling architecture Behavioral of regFile
+-- Compiling entity interrupt_control
+-- Compiling architecture interrupt_control_archticture of interrupt_control
 
-} {} {}} D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl
+} {} {}} {C:/Study/3rd Year/1st Term/CMP 25/Arch/Arch-Project/counter/counter.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Study/3rd Year/1st Term/CMP 25/Arch/Arch-Project/counter/counter.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity counter
+-- Compiling architecture counter_archticture of counter
+
+} {} {}} {C:/Study/3rd Year/1st Term/CMP 25/Arch/Arch-Project/memory-elements/register.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {C:/Study/3rd Year/1st Term/CMP 25/Arch/Arch-Project/memory-elements/register.vhdl}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -48,37 +59,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling entity genReg
 -- Compiling architecture Behavioral of genReg
-
-} {} {}} D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl {0 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
-** Error (suppressible): D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl(1): (vcom-1491) Empty source files.
-
-} {} {}} D:/faculty/arch/Project/Arch-Project/memory-elements/memory_testbench.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/memory-elements/memory_testbench.vhdl
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package std_logic_arith
--- Loading package STD_LOGIC_UNSIGNED
--- Loading package std_logic_textio
--- Compiling entity memory_tb
--- Compiling architecture TB_ARCH of memory_tb
-
-} {} {}} D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl {0 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
-** Error (suppressible): D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl(1): (vcom-1491) Empty source files.
-
-} {} {}} D:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package std_logic_arith
--- Loading package STD_LOGIC_UNSIGNED
--- Compiling entity SignExtend
--- Compiling architecture Structural of SignExtend
 
 } {} {}} D:/faculty/arch/Project/Arch-Project/alu/alu.vhdl {0 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/alu/alu.vhdl
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
