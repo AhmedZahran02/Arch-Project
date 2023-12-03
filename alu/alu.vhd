@@ -133,8 +133,9 @@ begin
         anotherIndex <= binary_to_integer(Data2);
 end process;
 
-process (Data1, Data2, anotherIndex ,Sel)
+process (Data1, Data2, anotherIndex,RL ,Sel)
 begin
+	RL_OUT <= (others=>'0');
         RL_OUT (anotherIndex - 1 downto 0) <= RL(n downto n - anotherIndex + 1);
 	RL_OUT (n downto anotherIndex) <= RL(n - anotherIndex downto 0);
 end process;
@@ -149,8 +150,9 @@ begin
         Index <= binary_to_integer(Data2);
 end process;
 
-process (Data1, Data2, Index,Sel)
+process (Data1, Data2, Index,RR,Sel)
 begin
+	RR_OUT <= (others=>'0');
         RR_OUT (n downto n - Index + 1) <= RR(Index - 1 downto 0);
 	RR_OUT (n - Index downto 0) <= RR(n downto Index);
 end process;
