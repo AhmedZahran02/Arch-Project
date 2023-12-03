@@ -23,7 +23,6 @@ ENTITY decode_stage IS
         execute_will_write_back : IN STD_LOGIC;
         memory_will_write_back : IN STD_LOGIC;
         should_write_back : IN STD_LOGIC;
-        output_port_select : IN STD_LOGIC;
         --==================================================================
         clk : IN STD_LOGIC;
         reset : IN STD_LOGIC;
@@ -31,7 +30,6 @@ ENTITY decode_stage IS
         control_signals_out : OUT STD_LOGIC_VECTOR(CONTROL_SIGNAL_SIZE - 1 DOWNTO 0);
         operand_1 : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
         operand_2 : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
-        output_port : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
         write_back_register_address : OUT STD_LOGIC_VECTOR(2 DOWNTO 0)
 
     );
@@ -47,6 +45,24 @@ ARCHITECTURE decode_stage_architecture OF decode_stage IS
             writeEnable, clk, rst : IN STD_LOGIC;
             readAddr1, readAddr2, writeAddr : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
             readData1, readData2 : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0)
+        );
+    END COMPONENT;
+
+    COMPONENT hazard_detection_unit IS
+        PORT (
+            source_1_address : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+            source_2_address : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+            is_one_operand : IN STD_LOGIC;
+            input_port_select : IN STD_LOGIC;
+            has_immediate_value : IN STD_LOGIC;
+            execute_destination : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+            memory_destination : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+            execute_will_write_back : IN STD_LOGIC;
+            memory_will_write_back : IN STD_LOGIC;
+            --==================================================================
+            hazard_operand_1_selector : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
+            hazard_operand_2_selector : OUT STD_LOGIC_VECTOR(1 DOWNTO 0)
+
         );
     END COMPONENT;
 
@@ -68,8 +84,8 @@ ARCHITECTURE decode_stage_architecture OF decode_stage IS
     SIGNAL has_immediate_value : STD_LOGIC; -- 18
     SIGNAL is_call_operation : STD_LOGIC; -- 20
 
-    SIGNAL hazard_operand_1_selector : STD_LOGIC_VECTOR(1 DOWNTO 0) := "00";
-    SIGNAL hazard_operand_2_selector : STD_LOGIC_VECTOR(1 DOWNTO 0) := "00";
+    SIGNAL hazard_operand_1_selector : STD_LOGIC_VECTOR(1 DOWNTO 0);
+    SIGNAL hazard_operand_2_selector : STD_LOGIC_VECTOR(1 DOWNTO 0);
     SIGNAL read_register_1_address : STD_LOGIC_VECTOR(2 DOWNTO 0);
     SIGNAL read_register_2_address : STD_LOGIC_VECTOR(2 DOWNTO 0);
     SIGNAL read_register_1 : STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
@@ -87,6 +103,7 @@ ARCHITECTURE decode_stage_architecture OF decode_stage IS
 BEGIN
 
     -- ==================================== Wires Connection ====================================
+    control_signals_out <= control_signals_in;
     write_back <= control_signals_in(11);
     is_one_operand <= control_signals_in(21);
     input_port_select <= control_signals_in(7);
@@ -116,9 +133,6 @@ BEGIN
     operand_2 <= input_port_select_out WHEN hazard_operand_2_selector = "00" ELSE
         alu_result WHEN hazard_operand_2_selector = "01" ELSE
         memory_result;
-
-    output_port <= load_data WHEN output_port_select = '1';
-
     register_file : regFile GENERIC MAP(
         REG_SIZE, REG_NUMBER) PORT MAP(
         writeData => load_data,
@@ -147,5 +161,17 @@ BEGIN
         Input => op_code(7 DOWNTO 3),
         Output => extended_rotate_value
     );
-
+    HDU : hazard_detection_unit PORT MAP(
+        source_1_address => read_register_1_address,
+        source_2_address => read_register_2_address,
+        is_one_operand => is_one_operand,
+        input_port_select => input_port_select,
+        has_immediate_value => has_immediate_value,
+        execute_destination => execute_destination,
+        memory_destination => memory_destination,
+        execute_will_write_back => execute_will_write_back,
+        memory_will_write_back => memory_will_write_back,
+        hazard_operand_1_selector => hazard_operand_1_selector,
+        hazard_operand_2_selector => hazard_operand_2_selector
+    );
 END decode_stage_architecture;
