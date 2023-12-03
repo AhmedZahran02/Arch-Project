@@ -9,20 +9,27 @@ ENTITY decode_stage IS
         CONTROL_SIGNAL_SIZE : INTEGER := 22
     );
     PORT (
-        control_signals_in : IN STD_LOGIC_VECTOR(CONTROL_SIGNAL_SIZE - 1 DOWNTO 0);
+        -- fetch
         op_code : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-        instruction : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-        write_register_address : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-        input_port : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
-        load_data : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
+        immediate_16 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
         pc : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
+        
+        -- execute 
         alu_result : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
-        memory_result : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
         execute_destination : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-        memory_destination : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
         execute_will_write_back : IN STD_LOGIC;
+
+        -- memory
+        memory_result : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
+        memory_destination : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
         memory_will_write_back : IN STD_LOGIC;
+
+        -- write back 
+        write_register_address : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
         should_write_back : IN STD_LOGIC;
+        load_data : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
+
+        input_port : IN STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
         --==================================================================
         clk : IN STD_LOGIC;
         reset : IN STD_LOGIC;
@@ -30,10 +37,12 @@ ENTITY decode_stage IS
         control_signals_out : OUT STD_LOGIC_VECTOR(CONTROL_SIGNAL_SIZE - 1 DOWNTO 0);
         operand_1 : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
         operand_2 : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
+        reg_file_i_output : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 downto 0);
         write_back_register_address : OUT STD_LOGIC_VECTOR(2 DOWNTO 0)
 
     );
 END decode_stage;
+
 ARCHITECTURE decode_stage_architecture OF decode_stage IS
     COMPONENT regFile IS
         GENERIC (
@@ -47,6 +56,13 @@ ARCHITECTURE decode_stage_architecture OF decode_stage IS
             readData1, readData2 : OUT STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0)
         );
     END COMPONENT;
+
+    component controlUnit IS
+        PORT (
+        opCode : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
+        controlSignals : OUT STD_LOGIC_VECTOR(21 DOWNTO 0)
+        );
+    END component;
 
     COMPONENT hazard_detection_unit IS
         PORT (
@@ -99,19 +115,20 @@ ARCHITECTURE decode_stage_architecture OF decode_stage IS
     SIGNAL is_call_operation_out : STD_LOGIC_VECTOR(REG_SIZE - 1 DOWNTO 0);
 
     SIGNAL temp_signal_con : STD_LOGIC_VECTOR(19 DOWNTO 0);
+    SIGNAL control_signals : STD_LOGIC_VECTOR(CONTROL_SIGNAL_SIZE - 1 DOWNTO 0);
 
 BEGIN
 
     -- ==================================== Wires Connection ====================================
-    control_signals_out <= control_signals_in;
-    write_back <= control_signals_in(11);
-    is_one_operand <= control_signals_in(21);
-    input_port_select <= control_signals_in(7);
-    is_rotate_operation <= control_signals_in(17);
-    has_immediate_value <= control_signals_in(18);
-    is_call_operation <= control_signals_in(20);
+    control_signals_out <= control_signals;
+    write_back <= control_signals(11);
+    is_one_operand <= control_signals(21);
+    input_port_select <= control_signals(7);
+    is_rotate_operation <= control_signals(17);
+    has_immediate_value <= control_signals(18);
+    is_call_operation <= control_signals(20);
     write_back_register_address <= op_code(10 DOWNTO 8);
-    temp_signal_con <= op_code(7 DOWNTO 4) & instruction;
+    temp_signal_con <= op_code(7 DOWNTO 4) & immediate_16;
     read_register_1_address <= op_code(7 DOWNTO 5) WHEN is_one_operand = '0' ELSE
         op_code(10 DOWNTO 8);
     read_register_2_address <= op_code(4 DOWNTO 2);
@@ -133,6 +150,10 @@ BEGIN
     operand_2 <= input_port_select_out WHEN hazard_operand_2_selector = "00" ELSE
         alu_result WHEN hazard_operand_2_selector = "01" ELSE
         memory_result;
+
+
+    control_signals_out <= control_signals;
+    reg_file_i_output <= read_register_1;
     register_file : regFile GENERIC MAP(
         REG_SIZE, REG_NUMBER) PORT MAP(
         writeData => load_data,
@@ -148,7 +169,7 @@ BEGIN
 
     extend_immediate_value : SignExtend GENERIC MAP(
         16, REG_SIZE) PORT MAP(
-        Input => instruction,
+        Input => immediate_16,
         Output => extended_immediate_value
     );
     extend_effective_address : SignExtend GENERIC MAP(
@@ -173,5 +194,11 @@ BEGIN
         memory_will_write_back => memory_will_write_back,
         hazard_operand_1_selector => hazard_operand_1_selector,
         hazard_operand_2_selector => hazard_operand_2_selector
+    );
+
+    control_unit: controlUnit
+    port map (
+      opCode         => op_code(15 downto 12),
+      controlSignals => control_signals
     );
 END decode_stage_architecture;

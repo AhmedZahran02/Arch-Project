@@ -26,7 +26,7 @@ BEGIN
 
 	PROCESS (clk)
 	BEGIN
-	IF rising_edge(clk) THEN -- moa => added this to make it positive edge triggered
+	IF falling_edge(clk) THEN -- moa => added this to make it positive edge triggered
 		IF (rst = '1') THEN -- may be modified to this   IF (rst = '1' AND writeEnable = '1') THEN
 			FOR i IN 0 TO REG_NUMBER - 1 LOOP
 				generalRegister(i) <= (OTHERS => '0');

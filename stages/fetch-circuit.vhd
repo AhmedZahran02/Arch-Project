@@ -51,7 +51,6 @@ END COMPONENT;
 COMPONENT genReg IS
 GENERIC (
 REG_SIZE : INTEGER := 32;
--- MoA : i need this for the stack pointer to be initialy = 2^12 - 1
 RESET_VALUE : INTEGER := 0
 );
 PORT (
