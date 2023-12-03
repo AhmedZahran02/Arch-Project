@@ -4,7 +4,7 @@ USE IEEE.numeric_std.ALL;
 
 ENTITY writeback_stage IS
     GENERIC (
-        REG_SIZE : INTEGER := 32;
+        REG_SIZE : INTEGER := 32
     );
     PORT (
         output_port_select : STD_LOGIC;

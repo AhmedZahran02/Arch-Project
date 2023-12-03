@@ -17,6 +17,7 @@ nextAddress : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
 takeMemoryControl : IN STD_LOGIC_VECTOR (0 DOWNTO 0);
 nextInstruction : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
 clk : IN STD_LOGIC;
+reset: IN STD_LOGIC;
 --------------------------------------------------
 currentPc : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
 instructionOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
@@ -137,10 +138,10 @@ pcNonMaskedSel <= isRetOperation & ((zeroFlag AND isJumpZero) OR isNonContionalJ
 u3 : GenericMux GENERIC MAP(32, 2) PORT MAP(pcNonMaskedInput, pcNonMaskedSel, pcNonMaskedValue);
 pcMaskedInput <= nextPc & pcNonMaskedValue;
 u4 : GenericMux GENERIC MAP(32, 1) PORT MAP(pcMaskedInput, forcePc, pcMaskedValue);
-u5 : genReg PORT MAP(pcMaskedValue, '1', clk, '0', inCurrentPc);
+u5 : genReg PORT MAP(pcMaskedValue, '1', clk, reset, inCurrentPc);
 addressMaskedInput <= nextAddress & inCurrentPc;
 u6 : GenericMux GENERIC MAP(32, 1) PORT MAP(addressMaskedInput, takeMemoryControl, addressMaskedValue);
-u7 : memory PORT MAP(addressMaskedValue, (OTHERS => '0'), '0', '0', '0', '0', clk, '0', instrNonMaskedValueTemp);
+u7 : memory PORT MAP(addressMaskedValue, (OTHERS => '0'), '0', '0', '0', '0', clk, reset, instrNonMaskedValueTemp);
 instrNonMaskedValue <= instrNonMaskedValueTemp(15 DOWNTO 0);
 instrMaskedInput <= nextInstruction & nextInstruction & NOP & instrNonMaskedValue;
 instrMaskedSel <= forceInstruction & counterResult;

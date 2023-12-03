@@ -50,8 +50,8 @@ begin
     process
     begin
 
-        Data1 <= X"0000000F"; -- 15
-        Data2 <= X"00000002"; -- 2
+        Data1 <= X"00000000"; -- 15
+        Data2 <= X"00000000"; -- 2
 	FlagsIn<= "000";
         Sel <= "0000"; -- nop
         wait for ClockPeriod;

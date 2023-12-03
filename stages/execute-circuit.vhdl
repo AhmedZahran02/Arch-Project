@@ -53,7 +53,7 @@ architecture execute_stage_arch of execute_stage is
     end component;
 
     -- either alu output or memory if pop flags
-	 signal alu_flags_output : std_logic_vector(2 downto 0);
+	signal alu_flags_output : std_logic_vector(2 downto 0);
     signal flag_register_input : std_logic_vector(2 downto 0);
     signal flag_register_output : std_logic_vector(2 downto 0);
 

@@ -121,11 +121,11 @@ BEGIN
 
     -- ==================================== Wires Connection ====================================
     control_signals_out <= control_signals;
-    write_back <= control_signals(11);
+    write_back <= control_signals(1);
     is_one_operand <= control_signals(21);
-    input_port_select <= control_signals(7);
-    is_rotate_operation <= control_signals(17);
-    has_immediate_value <= control_signals(18);
+    input_port_select <= control_signals(15);
+    is_rotate_operation <= control_signals(18);
+    has_immediate_value <= control_signals(19);
     is_call_operation <= control_signals(20);
     write_back_register_address <= op_code(10 DOWNTO 8);
     temp_signal_con <= op_code(7 DOWNTO 4) & immediate_16;
@@ -198,7 +198,7 @@ BEGIN
 
     control_unit: controlUnit
     port map (
-      opCode         => op_code(15 downto 12),
+      opCode         => op_code(15 downto 11),
       controlSignals => control_signals
     );
 END decode_stage_architecture;
