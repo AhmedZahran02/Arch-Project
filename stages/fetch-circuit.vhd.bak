@@ -20,8 +20,7 @@ clk : IN STD_LOGIC;
 --------------------------------------------------
 currentPc : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
 instructionOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-instructionMemoryOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-waitFor : OUT STD_LOGIC_VECTOR(1 DOWNTO 0)
+instructionMemoryOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
 );
 END fetch_stage;
 
@@ -77,20 +76,8 @@ output_data_bus : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
 );
 END COMPONENT;
 
-COMPONENT counter IS
-GENERIC (
-n : POSITIVE := 2
-);
-PORT (
-clk : IN STD_LOGIC;
-reset : IN STD_LOGIC;
-load_enable : IN STD_LOGIC;
-load_data : IN STD_LOGIC_VECTOR(n - 1 DOWNTO 0);
-result : OUT STD_LOGIC
-);
-END COMPONENT;
-
 SIGNAL one : STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
+
 SIGNAL zero : STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
 SIGNAL concatZeroOne : STD_LOGIC_VECTOR(63 DOWNTO 0);
 SIGNAL pcAddValue : STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -105,15 +92,8 @@ SIGNAL pcMaskedInput : STD_LOGIC_VECTOR(63 DOWNTO 0);
 SIGNAL inCurrentPc : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL addressMaskedInput : STD_LOGIC_VECTOR (63 DOWNTO 0);
 SIGNAL addressMaskedValue : STD_LOGIC_VECTOR (31 DOWNTO 0);
-SIGNAL instrNonMaskedValueTemp : STD_LOGIC_VECTOR(31 DOWNTO 0);
+SIGNAL instrNonMaskedValueTemp : STD_LOGIC_VECTOR(15 DOWNTO 0);
 SIGNAL instrNonMaskedValue : STD_LOGIC_VECTOR(15 DOWNTO 0);
-SIGNAL instrMaskedInput : STD_LOGIC_VECTOR(63 DOWNTO 0);
-SIGNAL instrMaskedValue : STD_LOGIC_VECTOR(15 DOWNTO 0);
-SIGNAL instrMaskedSel : STD_LOGIC_VECTOR(1 DOWNTO 0);
-SIGNAL NOP : STD_LOGIC_VECTOR(15 DOWNTO 0) := (OTHERS => '0');
-SIGNAL counterResult : STD_LOGIC;
-SIGNAL counterWe : STD_LOGIC;
-
 BEGIN
 
 PROCESS (inCurrentPc) BEGIN
@@ -124,28 +104,18 @@ PROCESS (instrNonMaskedValue) BEGIN
 instructionMemoryOut <= instrNonMaskedValue;
 END PROCESS;
 
-PROCESS (instrMaskedValue) BEGIN
-waitFor <= instrMaskedValue(1 DOWNTO 0);
-instructionOut <= instrMaskedValue;
-END PROCESS;
-
 one(0) <= '1';
 concatZeroOne <= zero & one;
 u1 : GenericMux PORT MAP(concatZeroOne, forceInstruction, pcAddValue);
 u2 : n_bit_adder PORT MAP(inCurrentPc, pcAddValue, Cin, pcaddedValue, Cout);
 pcNonMaskedInput <= memoryData & memoryData & regFileReadI & pcaddedValue;
 pcNonMaskedSel <= isRetOperation & ((zeroFlag AND isJumpZero) OR isNonContionalJump);
-u3 : GenericMux GENERIC MAP(32, 2) PORT MAP(pcNonMaskedInput, pcNonMaskedSel, pcNonMaskedValue);
+u3 : GenericMux GENERIC MAP(128, 2) PORT MAP(pcNonMaskedInput, pcNonMaskedSel, pcNonMaskedValue);
 pcMaskedInput <= nextPc & pcNonMaskedValue;
-u4 : GenericMux GENERIC MAP(32, 1) PORT MAP(pcMaskedInput, forcePc, pcMaskedValue);
+u4 : GenericMux GENERIC MAP(64, 1) PORT MAP(pcMaskedInput, forcePc, pcMaskedValue);
 u5 : genReg PORT MAP(pcMaskedValue, '1', clk, '0', inCurrentPc);
 addressMaskedInput <= nextAddress & inCurrentPc;
-u6 : GenericMux GENERIC MAP(32, 1) PORT MAP(addressMaskedInput, takeMemoryControl, addressMaskedValue);
+u6 : GenericMux GENERIC MAP(64, 1) PORT MAP(addressMaskedInput, takeMemoryControl, addressMaskedValue);
 u7 : memory PORT MAP(addressMaskedValue, (OTHERS => '0'), '0', '0', '0', '0', clk, '0', instrNonMaskedValueTemp);
-instrNonMaskedValue <= instrNonMaskedValueTemp(15 DOWNTO 0);
-instrMaskedInput <= nextInstruction & nextInstruction & NOP & instrNonMaskedValue;
-instrMaskedSel <= forceInstruction & counterResult;
-u8 : GenericMux GENERIC MAP(16, 2) PORT MAP(instrMaskedInput, instrMaskedSel, instrMaskedValue);
-counterWe <= instrMaskedValue(1) OR instrMaskedValue(0);
-u9 : counter PORT MAP(clk, '0', counterWe, instrMaskedValue(1 DOWNTO 0), counterResult);
+instrNonMaskedValue <= instrNonMaskedValueTemp(15 downto 0);
 END fetch_stage_architecture;
