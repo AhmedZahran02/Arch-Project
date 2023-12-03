@@ -11,7 +11,7 @@ int, clk, rst : IN STD_LOGIC;
 globalReset, forceInstruction, takeMemoryControl, forcePc : OUT STD_LOGIC;
 nextInstruction : OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
 nextPc : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-nextAddress : OUT STD_LOGIC_VECTOR (15 DOWNTO 0)
+nextAddress : OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 );
 END interrupt_control;
 
@@ -55,14 +55,15 @@ u3 : counter PORT MAP(clk, counterRst, counterLoadEn, waitFor, counterResult);
 
 PROCESS (clk, rst, int)
 BEGIN
-IF rising_edge(rst) THEN
+IF rst = '1' THEN
 currentState <= "0000";
-ELSIF rising_edge(int) THEN
+ELSIF int = '1' THEN
 currentState <= "0111";
-counterRst <= '1';
 counterLoadEn <= '1';
 ELSIF rising_edge(clk) THEN
 currentState <= nextState;
+ELSIF falling_edge(clk) THEN
+counterLoadEn <= '0';
 END IF;
 END PROCESS;
 
@@ -86,7 +87,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '0';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "0001" =>
 
@@ -105,7 +105,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '1';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "0010" =>
 
@@ -115,7 +114,7 @@ globalReset <= '1';
 forceInstruction <= '0';
 nextInstruction <= (OTHERS => '0');
 takeMemoryControl <= '1';
-nextAddress <= (15 DOWNTO 1 => '0') & '1';
+nextAddress <= (31 DOWNTO 1 => '0') & '1';
 forcePc <= '0';
 regRst1 <= '0';
 regRst2 <= '0';
@@ -124,7 +123,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '1';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "0011" =>
 
@@ -134,7 +132,7 @@ globalReset <= '1';
 forceInstruction <= '0';
 nextInstruction <= (OTHERS => '0');
 takeMemoryControl <= '1';
-nextAddress <= (15 DOWNTO 2 => '0') & "10";
+nextAddress <= (31 DOWNTO 2 => '0') & "10";
 forcePc <= '0';
 regRst1 <= '0';
 regRst2 <= '0';
@@ -143,7 +141,6 @@ regIn2 <= (31 DOWNTO 16 => '0') & memoryData;
 we1 <= '0';
 we2 <= '1';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "0100" =>
 
@@ -153,7 +150,7 @@ globalReset <= '1';
 forceInstruction <= '0';
 nextInstruction <= (OTHERS => '0');
 takeMemoryControl <= '1';
-nextAddress <= (15 DOWNTO 2 => '0') & "11";
+nextAddress <= (31 DOWNTO 2 => '0') & "11";
 forcePc <= '0';
 regRst1 <= '0';
 regRst2 <= '0';
@@ -162,7 +159,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '0';
 we2 <= '1';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "0101" =>
 
@@ -172,7 +168,7 @@ globalReset <= '1';
 forceInstruction <= '0';
 nextInstruction <= (OTHERS => '0');
 takeMemoryControl <= '0';
-nextAddress <= (15 DOWNTO 2 => '0') & "11";
+nextAddress <= (OTHERS => '0');
 forcePc <= '1';
 regRst1 <= '0';
 regRst2 <= '0';
@@ -181,7 +177,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '0';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "0110" =>
 
@@ -200,7 +195,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '0';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "0111" =>
 
@@ -223,7 +217,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '0';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "1000" =>
 
@@ -242,7 +235,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '0';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "1001" =>
 
@@ -261,7 +253,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '0';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN "1010" =>
 
@@ -280,7 +271,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '0';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 WHEN OTHERS =>
 
@@ -299,7 +289,6 @@ regIn2 <= (OTHERS => '0');
 we1 <= '0';
 we2 <= '0';
 counterRst <= '0';
-counterLoadEn <= '0';
 
 END CASE;
 END PROCESS;

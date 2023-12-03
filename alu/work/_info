@@ -9,7 +9,7 @@ z2
 cModel Technology
 Z0 dC:/Users/HIMA/source/repos/Arch-Project/alu
 Ealu
-Z1 w1701543723
+Z1 w1701593503
 Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 Z3 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
 Z4 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
@@ -25,9 +25,9 @@ VBRnjT1KeI2oz5WYMBbhO40
 !s100 3]iV8=8H851VS54XE_Z3n3
 Z10 OV;C;10.5b;63
 32
-Z11 !s110 1701543738
+Z11 !s110 1701593509
 !i10b 1
-Z12 !s108 1701543738.000000
+Z12 !s108 1701593509.000000
 Z13 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:\Users\HIMA\source\repos\Arch-Project\alu\alu.vhd|
 Z14 !s107 C:\Users\HIMA\source\repos\Arch-Project\alu\alu.vhd|
 !i113 1
@@ -43,8 +43,8 @@ R7
 Z17 DEx4 work 3 alu 0 22 BRnjT1KeI2oz5WYMBbhO40
 l65
 L22
-VCGdNXP1jKi23Xe9g_5^Wj2
-!s100 3;V?L3ESel^CN69bbPAn?3
+Vz8_4^S>1MFL@N]e0[Lm860
+!s100 n6Nj4L><D8DkAZGjP8h;d2
 R10
 32
 R11
@@ -70,11 +70,11 @@ VdK`n@JMC3hH_>diQcWG4`2
 !s100 FAJ;;DYSE8OODM85Y9A133
 R10
 32
-Z21 !s110 1701274650
+R11
 !i10b 1
-Z22 !s108 1701274650.000000
-Z23 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/mux.vhd|
-Z24 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/mux.vhd|
+R12
+Z21 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/mux.vhd|
+Z22 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/mux.vhd|
 !i113 1
 R15
 R16
@@ -83,18 +83,18 @@ R4
 R5
 R6
 R7
-Z25 DEx4 work 10 genericmux 0 22 dK`n@JMC3hH_>diQcWG4`2
+Z23 DEx4 work 10 genericmux 0 22 dK`n@JMC3hH_>diQcWG4`2
 l32
 L18
 V^gMNQ0_eXVVCaODg16D^k1
 !s100 KP@D==>=8P8o>ME>I?oRE2
 R10
 32
-R21
+R11
 !i10b 1
+R12
+R21
 R22
-R23
-R24
 !i113 1
 R15
 R16
@@ -103,7 +103,7 @@ R4
 R5
 R6
 R7
-R25
+R23
 l32
 L18
 VCXC<]c`OJe7UN<4oRH@ah2
@@ -113,32 +113,32 @@ R10
 !s110 1701099862
 !i10b 1
 !s108 1701099862.000000
-R23
-R24
+R21
+R22
 !i113 1
 R15
 R16
 w1701099858
 En_bit_adder
-Z26 w1701097356
+Z24 w1701097356
 R4
 R5
 R6
 R7
 R0
-Z27 8C:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd
-Z28 FC:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd
+Z25 8C:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd
+Z26 FC:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd
 l0
 L8
 VTSZ66dL1SnjU1GhZYk>iK2
 !s100 cMUfJ`o>@d=T?lPGP3hbb1
 R10
 32
-R21
+R11
 !i10b 1
-R22
-Z29 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd|
-Z30 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd|
+Z27 !s108 1701593508.000000
+Z28 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd|
+Z29 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/n-bit-adder.vhd|
 !i113 1
 R15
 R16
@@ -154,32 +154,32 @@ V4CPN6>zb44[CYFY;0jDjV1
 !s100 aDjff=M0Eg:>PT;>PZzNa3
 R10
 32
-R21
+R11
 !i10b 1
-R22
+R27
+R28
 R29
-R30
 !i113 1
 R15
 R16
 Eone_bit_adder
-Z31 w1701097032
+Z30 w1701097032
 R4
 R5
 R6
 R7
 R0
-Z32 8C:/Users/HIMA/source/repos/Arch-Project/alu/one-bit-adder.vhd
-Z33 FC:/Users/HIMA/source/repos/Arch-Project/alu/one-bit-adder.vhd
+Z31 8C:/Users/HIMA/source/repos/Arch-Project/alu/one-bit-adder.vhd
+Z32 FC:/Users/HIMA/source/repos/Arch-Project/alu/one-bit-adder.vhd
 l0
 L7
 Vm?1MEB?RDFfMD`5m9iT`F2
 !s100 WQZiS?M;zRicfG7e7>diE1
 R10
 32
-R21
+Z33 !s110 1701593508
 !i10b 1
-R22
+R27
 Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/one-bit-adder.vhd|
 Z35 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/one-bit-adder.vhd|
 !i113 1
@@ -197,34 +197,34 @@ V5aQSd]OjE:mj8B7@XY6dd1
 !s100 R7WOI?NHinHFJR=D_OG;c2
 R10
 32
-R21
+R33
 !i10b 1
-R22
+R27
 R34
 R35
 !i113 1
 R15
 R16
 Esignextend
-Z36 w1701522380
+Z36 w1701544254
 R4
 R5
 R6
 R7
 R0
-Z37 8C:\Users\HIMA\source\repos\Arch-Project\alu\sign-extend.vhd
-Z38 FC:\Users\HIMA\source\repos\Arch-Project\alu\sign-extend.vhd
+Z37 8C:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd
+Z38 FC:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd
 l0
 L6
 Vc4:JjLlZ]7W9K7JG]J?1g0
 !s100 NjUo@ezkfZVBOj097DMfK3
 R10
 32
-Z39 !s110 1701522383
+R11
 !i10b 1
-Z40 !s108 1701522383.000000
-Z41 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:\Users\HIMA\source\repos\Arch-Project\alu\sign-extend.vhd|
-Z42 !s107 C:\Users\HIMA\source\repos\Arch-Project\alu\sign-extend.vhd|
+R12
+Z39 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd|
+Z40 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd|
 !i113 1
 R15
 R16
@@ -240,11 +240,11 @@ VK`[z38z18]il2R]`;eXSk2
 !s100 ;fdKmGM9dj^1iSeSaD15?2
 R10
 32
-R39
+R11
 !i10b 1
+R12
+R39
 R40
-R41
-R42
 !i113 1
 R15
 R16
@@ -263,34 +263,32 @@ R10
 !s110 1701269885
 !i10b 1
 !s108 1701269885.000000
-!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd|
-!s107 C:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd|
+R39
+R40
 !i113 1
 R15
 R16
 w1701197806
-FC:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd
-8C:/Users/HIMA/source/repos/Arch-Project/alu/sign-extend.vhd
 Etestbench_alu
-Z43 w1701543813
+R36
 R4
 R5
 R6
 R7
 R0
-Z44 8C:\Users\HIMA\source\repos\Arch-Project\alu\alutestbench.vhd
-Z45 FC:\Users\HIMA\source\repos\Arch-Project\alu\alutestbench.vhd
+Z41 8C:/Users/HIMA/source/repos/Arch-Project/alu/alutestbench.vhd
+Z42 FC:/Users/HIMA/source/repos/Arch-Project/alu/alutestbench.vhd
 l0
 L8
 V5_B?Ri77WW0HgWcX>BE>d1
 !s100 42Y=RB>CRO4KJNBG:>1J=2
 R10
 32
-Z46 !s110 1701543820
+R11
 !i10b 1
-Z47 !s108 1701543820.000000
-Z48 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:\Users\HIMA\source\repos\Arch-Project\alu\alutestbench.vhd|
-Z49 !s107 C:\Users\HIMA\source\repos\Arch-Project\alu\alutestbench.vhd|
+R12
+Z43 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/alutestbench.vhd|
+Z44 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/alutestbench.vhd|
 !i113 1
 R15
 R16
@@ -302,46 +300,46 @@ R4
 R5
 R6
 R7
-Z50 DEx4 work 13 testbench_alu 0 22 5_B?Ri77WW0HgWcX>BE>d1
+Z45 DEx4 work 13 testbench_alu 0 22 5_B?Ri77WW0HgWcX>BE>d1
 l24
 L11
-V`@He@iW9PH4_9d[B_oWzW2
-!s100 o<9:d02;J3?NK[W>M]kbn1
+Z46 V`@He@iW9PH4_9d[B_oWzW2
+Z47 !s100 o<9:d02;J3?NK[W>M]kbn1
 R10
 32
-R46
+R11
 !i10b 1
-R47
-R48
-R49
+R12
+R43
+R44
 !i113 1
 R15
 R16
 Etestbench_genericmux
-Z51 w1701100670
+Z48 w1701100670
 R4
 R5
 R6
 R7
 R0
-Z52 8C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd
-Z53 FC:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd
+Z49 8C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd
+Z50 FC:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd
 l0
 L7
 VW`PNkTjXD3AIokd1`iJWZ2
 !s100 RC0<CaF_@W:>aN4H=DDj02
 R10
 32
-R21
+R11
 !i10b 1
-R22
-Z54 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd|
-Z55 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd|
+R12
+Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd|
+Z52 !s107 C:/Users/HIMA/source/repos/Arch-Project/alu/muxtestbench.vhd|
 !i113 1
 R15
 R16
 Atest
-R25
+R23
 R4
 R5
 R6
@@ -353,11 +351,11 @@ V^FI<<P233ff[R0<;1zolh2
 !s100 W6d3M6`8a;`9ROkTl33EK3
 R10
 32
-R21
+R11
 !i10b 1
-R22
-R54
-R55
+R12
+R51
+R52
 !i113 1
 R15
 R16
