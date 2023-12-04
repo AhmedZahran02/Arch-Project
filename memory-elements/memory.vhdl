@@ -1,6 +1,8 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.numeric_std.all;
+USE STD.TEXTIO.ALL;
+use IEEE.std_logic_textio.all;
 
 entity memory is
     Port (
@@ -26,11 +28,59 @@ architecture memory_architecture of memory is
 begin
     next_address <= std_logic_vector(unsigned(address_bus) + to_unsigned(1, address_bus'length)); -- next address = current address + 1
 
-    process(clk,reset)
+    process(clk)
+    FILE instructions_file : TEXT OPEN READ_MODE IS "instructions.txt";
+    FILE data_file : TEXT OPEN READ_MODE IS "data.txt";
+
+    VARIABLE in_line : LINE;
+    VARIABLE data_i : std_logic_vector(15 downto 0);
+    VARIABLE protect_bit_i : std_logic;
+    
+    VARIABLE cached_data : ram_type;
+    VARIABLE cached_protected : std_logic_vector (4095 downto 0);
     begin
         if reset = '1' then 
-            ram <= (others => (others =>'0'));
-            protect_bit <= (others => '0');
+            -- ram <= (others => (others =>'0'));
+            -- protect_bit <= (others => '0');
+            
+            if extra_address = '1' then
+                -- data memory
+                if ENDFILE(data_file) then
+                    ram <= cached_data;
+                    protect_bit <= cached_protected;
+                else
+                    for i in 0 to 4095 loop
+                        READLINE(data_file, in_line);
+                        READ(in_line,data_i);
+                        READ(in_line,protect_bit_i);
+                        
+                        ram(i) <= data_i;
+                        cached_data(i) := data_i;
+
+                        protect_bit(i) <= protect_bit_i;
+                        cached_protected(i) := protect_bit_i;
+                    end loop;
+                end if;
+            else 
+                -- instruction memory
+                if ENDFILE(instructions_file) then
+                    ram <= cached_data;
+                    protect_bit <= cached_protected;
+                else
+                    for i in 0 to 4095 loop
+                        READLINE(instructions_file, in_line);
+                        READ(in_line,data_i);
+                        READ(in_line,protect_bit_i);
+                        
+                        ram(i) <= data_i;
+                        cached_data(i) := data_i;
+
+                        protect_bit(i) <= protect_bit_i;
+                        cached_protected(i) := protect_bit_i;
+                    end loop;
+                end if;
+            end if;
+
         elsif rising_edge(clk) then
             if write_enable = '1' then 
 
@@ -56,7 +106,6 @@ begin
                 end if;
             end if;
         end if;
-
     end process;
 
     output_data_bus <= (others => '0') when reset = '1' else

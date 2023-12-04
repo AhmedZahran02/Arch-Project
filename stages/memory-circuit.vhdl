@@ -105,7 +105,7 @@ begin
                   address;
     -- ==================================== Components Init ====================================
 
-    data_memory : memory generic map(2) port map (
+    data_memory : memory port map (
         input_data_bus => memory_data_select,
         address_bus => address_select(11 downto 0),
         extra_address => '1',
