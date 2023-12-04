@@ -20,7 +20,8 @@ entity execute_stage is
         clk : in std_logic;
         rst : in std_logic;
 
-        current_flags : out std_logic_vector(3 downto 0) ;
+        current_flags : out std_logic_vector(3 downto 0);
+        next_flags : out std_logic_vector(3 downto 0);
         alu_result : out std_logic_vector(n - 1 downto 0)
         );
     
@@ -63,6 +64,7 @@ begin
 flag_register_input <= alu_flags_output when is_pop_flags_operation = '0' else memory_data_out(2 downto 0);
 
 current_flags <= '0' & flag_register_output;
+next_flags <= '0' & flag_register_input;
 
 execution_flags_register : genReg generic map(3,0) port map(
     dataIn => flag_register_input,

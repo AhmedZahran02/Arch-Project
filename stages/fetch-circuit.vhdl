@@ -132,20 +132,33 @@ END PROCESS;
 one(0) <= '1';
 concatZeroOne <= zero & one;
 u1 : GenericMux PORT MAP(concatZeroOne, forceInstruction, pcAddValue);
+
 u2 : n_bit_adder PORT MAP(inCurrentPc, pcAddValue, Cin, pcaddedValue, Cout);
+
 pcNonMaskedInput <= memoryData & memoryData & regFileReadI & pcaddedValue;
 pcNonMaskedSel <= isRetOperation & ((zeroFlag AND isJumpZero) OR isNonContionalJump);
+
 u3 : GenericMux GENERIC MAP(32, 2) PORT MAP(pcNonMaskedInput, pcNonMaskedSel, pcNonMaskedValue);
+
 pcMaskedInput <= nextPc & pcNonMaskedValue;
+
 u4 : GenericMux GENERIC MAP(32, 1) PORT MAP(pcMaskedInput, forcePc, pcMaskedValue);
+
 u5 : genReg PORT MAP(pcMaskedValue, '1', clk, reset, inCurrentPc);
+
 addressMaskedInput <= nextAddress & inCurrentPc;
+
 u6 : GenericMux GENERIC MAP(32, 1) PORT MAP(addressMaskedInput, takeMemoryControl, addressMaskedValue);
-u7 : memory PORT MAP(addressMaskedValue, (OTHERS => '0'), '0', '0', '0', '0', clk, reset, instrNonMaskedValueTemp);
+
+u7 : memory PORT MAP((OTHERS => '0') ,addressMaskedValue(11 downto 0), '0', '0', '0', '0', clk, reset, instrNonMaskedValueTemp);
+
 instrNonMaskedValue <= instrNonMaskedValueTemp(15 DOWNTO 0);
 instrMaskedInput <= nextInstruction & nextInstruction & NOP & instrNonMaskedValue;
 instrMaskedSel <= forceInstruction & counterResult;
+
 u8 : GenericMux GENERIC MAP(16, 2) PORT MAP(instrMaskedInput, instrMaskedSel, instrMaskedValue);
+
 counterWe <= instrMaskedValue(1) OR instrMaskedValue(0);
+
 u9 : counter PORT MAP(clk, '0', counterWe, instrMaskedValue(1 DOWNTO 0), counterResult);
 END fetch_stage_architecture;

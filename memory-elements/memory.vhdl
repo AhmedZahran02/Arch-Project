@@ -16,7 +16,8 @@ entity memory is
             clk : in std_logic;
             reset : in std_logic;
             --================================================================
-            output_data_bus: out std_logic_vector(31 downto 0)
+            output_data_bus: out std_logic_vector(31 downto 0);
+            output_protected_flag : out std_logic
         );
 end memory;
 
@@ -112,4 +113,5 @@ begin
                        std_logic_vector(to_unsigned(0, 16)) & ram(to_integer(unsigned(address_bus))) when extra_address = '0' else
                        ram(to_integer(unsigned(next_address))) & ram(to_integer(unsigned(address_bus)));
     
+    output_protected_flag <= '0' when reset = '1' else protect_bit(to_integer(unsigned(next_address))); 
 end memory_architecture;

@@ -83,7 +83,7 @@ WHEN "10100" =>
 controlSignals <= "1000000000001000000100";
 -- LDM
 WHEN "10101" =>
-controlSignals <= "1010000011000000100010";
+controlSignals <= "1010000011000000000010";
 -- LDD
 WHEN "10110" =>
 controlSignals <= "1011000011000000100010";

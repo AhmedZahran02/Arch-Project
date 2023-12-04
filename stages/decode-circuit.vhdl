@@ -117,6 +117,7 @@ ARCHITECTURE decode_stage_architecture OF decode_stage IS
     SIGNAL temp_signal_con : STD_LOGIC_VECTOR(19 DOWNTO 0);
     SIGNAL control_signals : STD_LOGIC_VECTOR(CONTROL_SIGNAL_SIZE - 1 DOWNTO 0);
 
+    signal resolved_operand_1 : std_logic_vector(31 downto 0);
 BEGIN
 
     -- ==================================== Wires Connection ====================================
@@ -140,12 +141,11 @@ BEGIN
     input_port_select_out <= immediate_rotate_out WHEN input_port_select = '0' ELSE
         input_port;
 
-    is_call_operation_out <= read_register_1 WHEN is_call_operation = '0' ELSE
-        pc;
-
-    operand_1 <= is_call_operation_out WHEN hazard_operand_1_selector = "00" ELSE
+    resolved_operand_1 <= read_register_1 WHEN hazard_operand_1_selector = "00" ELSE
         alu_result WHEN hazard_operand_1_selector = "01" ELSE
         memory_result;
+
+    operand_1 <= resolved_operand_1 WHEN is_call_operation = '0' ELSE pc;
 
     operand_2 <= input_port_select_out WHEN hazard_operand_2_selector = "00" ELSE
         alu_result WHEN hazard_operand_2_selector = "01" ELSE
@@ -153,7 +153,7 @@ BEGIN
 
 
     control_signals_out <= control_signals;
-    reg_file_i_output <= read_register_1;
+    reg_file_i_output <= resolved_operand_1;
     register_file : regFile GENERIC MAP(
         REG_SIZE, REG_NUMBER) PORT MAP(
         writeData => load_data,

@@ -24,13 +24,12 @@ entity memory_stage is
         inc_dec_stack : in std_logic; -- if 0 will increament else decreament
 
         is_push_flags : in std_logic;
-        is_pop_flags : in std_logic;
-
 
         clk : in std_logic;
         reset : in std_logic;
         --==================================================================
-        memory_data_result : out std_logic_vector(DATA_SIZE - 1 downto 0);    
+        memory_data_result : out std_logic_vector(DATA_SIZE - 1 downto 0);  
+        protected_flag_output : out std_logic;  
         final_data : out std_logic_vector(DATA_SIZE - 1 downto 0)         
     );
 end memory_stage;
@@ -49,7 +48,8 @@ architecture memory_stage_architecture of memory_stage is
                 clk : in std_logic;
                 reset : in std_logic;
                 --================================================================
-                output_data_bus: out std_logic_vector(31 downto 0)
+                output_data_bus: out std_logic_vector(31 downto 0);
+                output_protected_flag : out std_logic
             );
     end component;
 
@@ -84,6 +84,7 @@ architecture memory_stage_architecture of memory_stage is
     signal stack_pointer_out : std_logic_vector(DATA_SIZE - 1 downto 0);
 
     signal extended_flags : std_logic_vector(DATA_SIZE - 1 downto 0);
+    signal memory_protected_flag_out : std_logic;
 begin
 
     -- ==================================== Wires Connection ====================================
@@ -116,9 +117,10 @@ begin
         clk => clk,
         reset => reset,
         --================================================================
-        output_data_bus => memory_data_out
+        output_data_bus => memory_data_out,
+        output_protected_flag => memory_protected_flag_out
     );
-
+                  protected_flag_output <= memory_protected_flag_out when write_enable = '1' else '0';
     stack_pointer : genReg generic map(DATA_SIZE,4094) port map(
         dataIn => stack_pointer_in,
         writeEnable => is_stack_operation,

@@ -7,6 +7,7 @@ ENTITY processor IS
 PORT (
 port_in : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
 port_out : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+protected_warning : out std_logic;
 
 clk : IN STD_LOGIC;
 interrupt_signal : IN STD_LOGIC;
@@ -109,6 +110,7 @@ ARCHITECTURE arch OF processor IS
             rst : in std_logic;
     
             current_flags : out std_logic_vector(3 downto 0) ;
+            next_flags : out std_logic_vector(3 downto 0);
             alu_result : out std_logic_vector(n - 1 downto 0)
             );
         
@@ -136,13 +138,12 @@ ARCHITECTURE arch OF processor IS
             inc_dec_stack : in std_logic; -- if 0 will increament else decreament
     
             is_push_flags : in std_logic;
-            is_pop_flags : in std_logic;
-    
     
             clk : in std_logic;
             reset : in std_logic;
             --==================================================================
-            memory_data_result : out std_logic_vector(DATA_SIZE - 1 downto 0);    
+            memory_data_result : out std_logic_vector(DATA_SIZE - 1 downto 0);   
+            protected_flag_output : out std_logic;    
             final_data : out std_logic_vector(DATA_SIZE - 1 downto 0)         
         );
     end component;
@@ -176,6 +177,7 @@ ARCHITECTURE arch OF processor IS
 
     -- execute stage output wires
     signal current_flags : std_logic_vector(3 downto 0); 
+    signal next_flags : std_logic_vector(3 downto 0);
 
 
     -- memory stage output wires
@@ -197,7 +199,8 @@ ARCHITECTURE arch OF processor IS
     -- 2 control signal == 3 write back address == 32 write back data
     signal memory_stage_output  : std_logic_vector(36 downto 0);
     signal write_back_stage_input  : std_logic_vector(36 downto 0);
-    signal temp_instruction : std_logic_vector(15 downto 0);
+
+    signal latched_input_port : std_logic_vector(31 downto 0);
 BEGIN
 -- place fetch stage here and connect fetch_stage_output correct according to the comment
 fetch: fetch_stage
@@ -208,7 +211,7 @@ port map (
   isRetOperation       => memory_stage_input(77), -- from memory
   isNonContionalJump   => control_signal_out(17),
   isJumpZero           => control_signal_out(16),
-  zeroFlag             => current_flags(0),
+  zeroFlag             => next_flags(0),
   nextPc               => (others => '0'), -- edit this when you integrate the interruption control
   forcePc              => "0", -- edit this when you integrate the interruption control
   nextAddress          => (others => '0'), -- edit this when you integrate the interruption control
@@ -221,6 +224,14 @@ port map (
   instructionMemoryOut => instruction_memory_out,
   waitFor              => wait_for
 ); 
+
+latchin_input: genReg generic map(32,0) port map(
+    dataIn => port_in,
+    writeEnable => '1', 
+    clk => clk,
+    rst => global_reset,
+    dataOut => latched_input_port
+);
 
 IF_ID: genReg generic map(16,0) port map(
     dataIn => fetch_stage_output,
@@ -238,8 +249,7 @@ decode: decode_stage
     CONTROL_SIGNAL_SIZE => 22
     )
     port map (
-    --op_code                     => fetch_stage_output,
-    op_code                     => temp_instruction,
+    op_code                     => decode_stage_input,
     immediate_16                => instruction_memory_out,
     pc                          => current_pc,
     alu_result                  => execute_stage_output(31 downto 0),
@@ -253,7 +263,7 @@ decode: decode_stage
     should_write_back           => write_back_stage_input(36),
     load_data                   => write_back_data,
     
-    input_port                  => port_in,
+    input_port                  => latched_input_port,
     clk                         => clk,
     reset                       => global_reset,
     
@@ -287,6 +297,7 @@ exec: execute_stage generic map(32,4) port map(
     rst => global_reset,
 
     current_flags => current_flags,
+    next_flags => next_flags,
     alu_result => execute_stage_output(31 downto 0)
 );
 execute_stage_output(63 downto 32) <= execute_stage_input(63 downto 32);
@@ -318,13 +329,12 @@ memo : memory_stage generic map(32,2,4) port map (
     inc_dec_stack => memory_stage_input(71),
 
     is_push_flags => memory_stage_input(70),
-    is_pop_flags => memory_stage_input(69),
-
 
     clk => clk,
     reset => global_reset,
     
-    memory_data_result => memory_data_out,    
+    memory_data_result => memory_data_out,     
+    protected_flag_output => protected_warning,  
     final_data => memory_stage_output(31 downto 0)     
 );
 memory_stage_output(34 downto 32) <= memory_stage_input(66 downto 64);

@@ -6,9 +6,4 @@ oldPlacement = [21,20,18,17,10,9,7,3,2,1,0,19,16,15,14,13,12,6,5,4,11,8]
 for i in range(0,22):
     newopcode += opcode[21 - int(oldPlacement[i])]
 
-#print(newopcode)
-with open("./instructions.txt","+w") as f:
-    for i in range(4096):
-        s = "1010101010101010 1"
-        if i < 4095: s +="\n"
-        f.write(s)
+print(newopcode)
