@@ -46,7 +46,11 @@ end component GenericMux;
         variable result : natural := 0;
     begin
         for i in bin_val'range loop
+            if result < 1073741824 then
             result := result * 2;
+            else
+                result := 0;
+            end if; 
             if bin_val(i) = '1' then
                 result := result + 1;
             end if;

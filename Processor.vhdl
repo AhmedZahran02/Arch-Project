@@ -260,8 +260,8 @@ decode: decode_stage
     reg_file_i_output           => register_file_output_i,
 
     control_signals_out         => control_signal_out,
-    operand_1                   => decode_stage_output(63 downto 32),
     write_back_register_address => decode_stage_output(66 downto 64),
+    operand_1                   => decode_stage_output(63 downto 32),
     operand_2                   => decode_stage_output(31 downto 0)
 );
 decode_stage_output(81 downto 67) <= control_signal_out(14 downto 0);
