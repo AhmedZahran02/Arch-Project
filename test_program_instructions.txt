@@ -1,0 +1,28 @@
+0 begin Address = 64
+1  
+2 interrupt location = 0
+3 
+4 R0 = 16
+5 NOP
+6 CALL R0 = 16
+7 OUT R0
+8 JMP R0
+16 ADD R0,R0,2
+17 NOP
+18 OR R1,R1,R0 
+19 ADD R0,R0,R1
+20 STD R0, 16
+21 16
+22 LDM R0,16  
+23 16
+24 Protect R0 
+25 STD R0, 16
+26 16
+27 LDD R1,16
+28 16
+29 OUT R1 
+30 ADD R0,R0,R1 
+31 RET
+64 R0 = 4
+65 NOP
+66 JMP R0
