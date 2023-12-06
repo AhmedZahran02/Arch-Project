@@ -147,9 +147,9 @@ BEGIN
 
     operand_1 <= resolved_operand_1 WHEN is_call_operation = '0' ELSE pc;
 
-    operand_2 <= input_port_select_out WHEN hazard_operand_2_selector = "00" ELSE
-        alu_result WHEN hazard_operand_2_selector = "01" ELSE
-        memory_result;
+    operand_2 <= input_port_select_out WHEN hazard_operand_2_selector = "00" OR is_one_operand = '1' OR has_immediate_value = '1' OR input_port_select = '1' 
+            ELSE alu_result WHEN hazard_operand_2_selector = "01" 
+            ELSE memory_result;
 
 
     control_signals_out <= control_signals;

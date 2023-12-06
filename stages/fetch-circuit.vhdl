@@ -113,6 +113,7 @@ SIGNAL instrMaskedSel : STD_LOGIC_VECTOR(1 DOWNTO 0);
 SIGNAL NOP : STD_LOGIC_VECTOR(15 DOWNTO 0) := (OTHERS => '0');
 SIGNAL counterResult : STD_LOGIC;
 SIGNAL counterWe : STD_LOGIC;
+SIGNAL confirmFlush : STD_LOGIC;
 
 BEGIN
 
@@ -128,6 +129,8 @@ PROCESS (instrMaskedValue) BEGIN
 waitFor <= instrMaskedValue(1 DOWNTO 0);
 instructionOut <= instrMaskedValue;
 END PROCESS;
+
+confirmFlush <= (isJumpZero and zeroFlag) or (not isJumpZero);
 
 one(0) <= '1';
 concatZeroOne <= zero & one;
@@ -154,7 +157,7 @@ u7 : memory PORT MAP((OTHERS => '0') ,addressMaskedValue(11 downto 0), '0', '0',
 
 instrNonMaskedValue <= instrNonMaskedValueTemp(15 DOWNTO 0);
 instrMaskedInput <= nextInstruction & nextInstruction & NOP & instrNonMaskedValue;
-instrMaskedSel <= forceInstruction & counterResult;
+instrMaskedSel <= forceInstruction & (counterResult and confirmFlush);
 
 u8 : GenericMux GENERIC MAP(16, 2) PORT MAP(instrMaskedInput, instrMaskedSel, instrMaskedValue);
 

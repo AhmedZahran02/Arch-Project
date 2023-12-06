@@ -130,6 +130,15 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity n_bit_adder
 -- Compiling architecture Structural of n_bit_adder
 
+} {} {}} D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity fetch_stage
+-- Compiling architecture fetch_stage_architecture of fetch_stage
+
 } {} {}} D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -138,25 +147,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling entity decode_stage
 -- Compiling architecture decode_stage_architecture of decode_stage
-
-} {} {}} D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity controlUnit
--- Compiling architecture controlUnit_architecture of controlUnit
-
-} {} {}} D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package std_logic_arith
--- Loading package STD_LOGIC_UNSIGNED
--- Compiling entity GenericMux
--- Compiling architecture Structural of GenericMux
 
 } {} {}} D:/faculty/arch/Project/Arch-Project/alu/alu.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/alu/alu.vhdl
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -169,5 +159,24 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling entity alu
 -- Compiling architecture Structural of alu
+
+} {} {}} D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity GenericMux
+-- Compiling architecture Structural of GenericMux
+
+} {} {}} D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl {1 {vcom -work work -2002 -explicit -stats=none D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity controlUnit
+-- Compiling architecture controlUnit_architecture of controlUnit
 
 } {} {}}

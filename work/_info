@@ -9,7 +9,7 @@ z2
 cModel Technology
 dC:/intelFPGA/18.0
 Ealu
-Z0 w1701688907
+Z0 w1701796254
 Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 Z2 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
 Z3 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
@@ -25,9 +25,9 @@ VBRnjT1KeI2oz5WYMBbhO40
 !s100 3]iV8=8H851VS54XE_Z3n3
 Z10 OV;C;10.5b;63
 32
-Z11 !s110 1701704570
+Z11 !s110 1701797769
 !i10b 1
-Z12 !s108 1701704570.000000
+Z12 !s108 1701797769.000000
 Z13 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/alu.vhdl|
 Z14 !s107 D:/faculty/arch/Project/Arch-Project/alu/alu.vhdl|
 !i113 1
@@ -43,8 +43,8 @@ R6
 DEx4 work 3 alu 0 22 BRnjT1KeI2oz5WYMBbhO40
 l69
 L22
-VmLjcJ__Y>ENlBL487D53U2
-!s100 3Mz_>fo<mA]2dR99G:mi52
+V75<7YinKD85HbW7AG[:7Z0
+!s100 l?E[cMVAEH4<`X?FID_cc0
 R10
 32
 R11
@@ -140,7 +140,7 @@ R26
 R15
 R16
 Edecode_stage
-Z27 w1701702731
+Z27 w1701795722
 R1
 R5
 R6
@@ -153,9 +153,9 @@ VH11g6UN[GX?i<Cg:_j^g;2
 !s100 F>mooECogCajXUh>P@B[31
 R10
 32
-Z30 !s110 1701704571
+Z30 !s110 1701797770
 !i10b 1
-Z31 !s108 1701704571.000000
+Z31 !s108 1701797770.000000
 Z32 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl|
 Z33 !s107 D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl|
 !i113 1
@@ -168,8 +168,8 @@ R6
 DEx4 work 12 decode_stage 0 22 H11g6UN[GX?i<Cg:_j^g;2
 l121
 L46
-V5Y_>I_bYboV7OTUn:IgcW2
-!s100 cKfND3<z;WIOV=oQc=PA]1
+Vgc]8[QLX2oK]6@@@>n5gg1
+!s100 BbK@RGoOU_VP^ZY>ECG130
 R10
 32
 R30
@@ -228,7 +228,7 @@ R38
 R15
 R16
 Efetch_stage
-Z39 w1701704455
+Z39 w1701710175
 R1
 R5
 R6
@@ -254,10 +254,10 @@ R1
 R5
 R6
 DEx4 work 11 fetch_stage 0 22 jlO:NdlOG?1SM5Cnmj2632
-l117
+l118
 L29
-VXV?BVK?@B0EOU49ZDg5?C2
-!s100 d?1CATG]TOzAi4UgI`6oG2
+V2[bDCZE8D5OmXM=bo[27m1
+!s100 MDYzNl?8ni>;>P3P3c7SU3
 R10
 32
 R30
@@ -329,7 +329,7 @@ R10
 32
 R30
 !i10b 1
-R31
+R12
 Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl|
 Z52 !s107 D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl|
 !i113 1
@@ -350,7 +350,7 @@ R10
 32
 R30
 !i10b 1
-R31
+R12
 R51
 R52
 !i113 1

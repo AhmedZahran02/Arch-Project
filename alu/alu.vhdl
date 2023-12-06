@@ -139,9 +139,11 @@ end process;
 
 process (Data1, Data2, anotherIndex,RL ,Sel)
 begin
-	RL_OUT <= (others=>'0');
-        RL_OUT (anotherIndex - 1 downto 0) <= RL(n downto n - anotherIndex + 1);
-	RL_OUT (n downto anotherIndex) <= RL(n - anotherIndex downto 0);
+    if anotherIndex < 32 and anotherIndex >= 0 then
+        RL_OUT <= (others=>'0');
+            RL_OUT (anotherIndex - 1 downto 0) <= RL(n downto n - anotherIndex + 1);
+        RL_OUT (n downto anotherIndex) <= RL(n - anotherIndex downto 0);
+    end if;
 end process;
 
 C1_RL <= RL_OUT(0);
@@ -156,9 +158,11 @@ end process;
 
 process (Data1, Data2, Index,RR,Sel)
 begin
-	RR_OUT <= (others=>'0');
-        RR_OUT (n downto n - Index + 1) <= RR(Index - 1 downto 0);
-	RR_OUT (n - Index downto 0) <= RR(n downto Index);
+    if Index < 32 and Index >= 0 then
+        RR_OUT <= (others=>'0');
+            RR_OUT (n downto n - Index + 1) <= RR(Index - 1 downto 0);
+        RR_OUT (n - Index downto 0) <= RR(n downto Index);
+    end if;
 end process;
 
 C1_RR <= RR_OUT(0);
