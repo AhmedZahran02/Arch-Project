@@ -114,6 +114,7 @@ SIGNAL NOP : STD_LOGIC_VECTOR(15 DOWNTO 0) := (OTHERS => '0');
 SIGNAL counterResult : STD_LOGIC;
 SIGNAL counterWe : STD_LOGIC;
 SIGNAL confirmFlush : STD_LOGIC;
+signal pcReset : std_logic;
 
 BEGIN
 
@@ -146,6 +147,8 @@ u3 : GenericMux GENERIC MAP(32, 2) PORT MAP(pcNonMaskedInput, pcNonMaskedSel, pc
 pcMaskedInput <= nextPc & pcNonMaskedValue;
 
 u4 : GenericMux GENERIC MAP(32, 1) PORT MAP(pcMaskedInput, forcePc, pcMaskedValue);
+
+pcReset <= reset and (not forcePc(0));
 
 u5 : genReg PORT MAP(pcMaskedValue, '1', clk, reset, inCurrentPc);
 

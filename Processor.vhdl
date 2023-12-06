@@ -29,6 +29,18 @@ ARCHITECTURE arch OF processor IS
         );
     end component;
 
+    component interrupt_control IS
+    PORT (
+    memoryData : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    waitFor : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+    int, clk, rst : IN STD_LOGIC;
+    globalReset, forceInstruction, takeMemoryControl, forcePc : OUT STD_LOGIC;
+    nextInstruction : OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
+    nextPc : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+    nextAddress : OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+    );
+    END component;
+
     component fetch_stage IS
         PORT (
         forceInstruction : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
@@ -201,22 +213,49 @@ ARCHITECTURE arch OF processor IS
     signal write_back_stage_input  : std_logic_vector(36 downto 0);
 
     signal latched_input_port : std_logic_vector(31 downto 0);
+
+    signal next_instruction : std_logic_vector(15 downto 0);
+    signal next_pc : std_logic_vector(31 downto 0);
+    signal next_address : std_logic_vector(31 downto 0);
+    signal force_instruction_signal : std_logic_vector(0 downto 0);
+    signal take_memory_control_signal : std_logic_vector(0 downto 0);
+    signal force_pc_signal : std_logic_vector(0 downto 0);
 BEGIN
+
+-- place interruption control here
+interrupt_control_inst: interrupt_control
+port map (
+  memoryData        => instruction_memory_out,
+  waitFor           => wait_for,
+  int               => interrupt_signal,
+  clk               => clk,
+  rst               => reset_signal,
+  globalReset       => global_reset,
+  forceInstruction  => force_instruction_signal(0),
+  takeMemoryControl => take_memory_control_signal(0),
+  forcePc           => force_pc_signal(0),
+  nextInstruction   => next_instruction,
+  nextPc            => next_pc,
+  nextAddress       => next_address
+);
+
+
+
 -- place fetch stage here and connect fetch_stage_output correct according to the comment
 fetch: fetch_stage
 port map (
-  forceInstruction     => "0", -- edit this when you integrate the interruption control
+  forceInstruction     => force_instruction_signal,
   regFileReadI         => register_file_output_i, 
   memoryData           => memory_data_out,
   isRetOperation       => memory_stage_input(77), -- from memory
   isNonContionalJump   => control_signal_out(17),
   isJumpZero           => control_signal_out(16),
   zeroFlag             => next_flags(0),
-  nextPc               => (others => '0'), -- edit this when you integrate the interruption control
-  forcePc              => "0", -- edit this when you integrate the interruption control
-  nextAddress          => (others => '0'), -- edit this when you integrate the interruption control
-  takeMemoryControl    => "0", -- edit this when you integrate the interruption control
-  nextInstruction      => (others => '0'), -- edit this when you integrate the interruption control
+  nextPc               => next_pc,
+  forcePc              => force_pc_signal,
+  nextAddress          => next_address,
+  takeMemoryControl    => take_memory_control_signal,
+  nextInstruction      => next_instruction,
   clk                  => clk,
   reset                => global_reset,
   currentPc            => current_pc,

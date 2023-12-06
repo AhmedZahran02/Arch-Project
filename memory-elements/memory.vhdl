@@ -109,7 +109,7 @@ begin
         end if;
     end process;
 
-    output_data_bus <= (others => '0') when reset = '1' else
+    output_data_bus <= (others => '0') when reset = '1' and extra_address = '1' else
                        std_logic_vector(to_unsigned(0, 16)) & ram(to_integer(unsigned(address_bus))) when extra_address = '0' else
                        ram(to_integer(unsigned(next_address))) & ram(to_integer(unsigned(address_bus)));
     
