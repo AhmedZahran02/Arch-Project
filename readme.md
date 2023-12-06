@@ -1,2 +1,2 @@
 # Arch Project
-![project circuit](https://drive.google.com/file/d/1iGutOV_TXSdjxKVPO5pmTSqVk2PCRVtH/view?usp=sharing)
+![project circuit](./Arch%20Project%20Final%20Drawing.svg)
