@@ -105,6 +105,9 @@ def assemble(file_path):
 
             # Parse instructions
             tokens  = [elem.replace(',',' ').strip() for elem in line.split(' ')]
+            new_tokens = [item for token in tokens for item in (token.split() if ' ' in token else [token])]
+
+            tokens= new_tokens
             print(f"tokens {tokens}")
             if not tokens:
                 continue
