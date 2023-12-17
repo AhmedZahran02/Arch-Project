@@ -9,7 +9,7 @@ z2
 cModel Technology
 dC:/intelFPGA/18.0
 Ealu
-Z0 w1701796254
+Z0 w1701887555
 Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 Z2 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
 Z3 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
@@ -25,9 +25,9 @@ VBRnjT1KeI2oz5WYMBbhO40
 !s100 3]iV8=8H851VS54XE_Z3n3
 Z10 OV;C;10.5b;63
 32
-Z11 !s110 1701876359
+Z11 !s110 1702799742
 !i10b 1
-Z12 !s108 1701876359.000000
+Z12 !s108 1702799742.000000
 Z13 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/alu.vhdl|
 Z14 !s107 D:/faculty/arch/Project/Arch-Project/alu/alu.vhdl|
 !i113 1
@@ -56,13 +56,13 @@ R14
 R15
 R16
 Econtrolunit
-Z17 w1701703145
+R0
 R1
 R5
 R6
 R7
-Z18 8D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl
-Z19 FD:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl
+Z17 8D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl
+Z18 FD:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl
 l0
 L5
 VX2UU3LPQd4HbdlGOjU;nJ0
@@ -72,8 +72,8 @@ R10
 R11
 !i10b 1
 R12
-Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl|
-Z21 !s107 D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl|
+Z19 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl|
+Z20 !s107 D:/faculty/arch/Project/Arch-Project/control-unit/control-unit.vhdl|
 !i113 1
 R15
 R16
@@ -91,20 +91,20 @@ R10
 R11
 !i10b 1
 R12
+R19
 R20
-R21
 !i113 1
 R15
 R16
 Ecounter
-Z22 w1701685567
+R0
 R3
 R4
 R5
 R6
 R7
-Z23 8D:/faculty/arch/Project/Arch-Project/counter/counter.vhdl
-Z24 FD:/faculty/arch/Project/Arch-Project/counter/counter.vhdl
+Z21 8D:/faculty/arch/Project/Arch-Project/counter/counter.vhdl
+Z22 FD:/faculty/arch/Project/Arch-Project/counter/counter.vhdl
 l0
 L6
 V?Ob0<[Z2;`iS56XY[zLm;3
@@ -114,8 +114,8 @@ R10
 R11
 !i10b 1
 R12
-Z25 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/counter/counter.vhdl|
-Z26 !s107 D:/faculty/arch/Project/Arch-Project/counter/counter.vhdl|
+Z23 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/counter/counter.vhdl|
+Z24 !s107 D:/faculty/arch/Project/Arch-Project/counter/counter.vhdl|
 !i113 1
 R15
 R16
@@ -134,30 +134,30 @@ R10
 R11
 !i10b 1
 R12
-R25
-R26
+R23
+R24
 !i113 1
 R15
 R16
 Edecode_stage
-Z27 w1701795722
+R0
 R1
 R5
 R6
 R7
-Z28 8D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl
-Z29 FD:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl
+Z25 8D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl
+Z26 FD:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl
 l0
 L5
 VH11g6UN[GX?i<Cg:_j^g;2
 !s100 F>mooECogCajXUh>P@B[31
 R10
 32
-Z30 !s110 1701876360
+R11
 !i10b 1
-Z31 !s108 1701876360.000000
-Z32 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl|
-Z33 !s107 D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl|
+R12
+Z27 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl|
+Z28 !s107 D:/faculty/arch/Project/Arch-Project/stages/decode-circuit.vhdl|
 !i113 1
 R15
 R16
@@ -172,16 +172,16 @@ Vgc]8[QLX2oK]6@@@>n5gg1
 !s100 BbK@RGoOU_VP^ZY>ECG130
 R10
 32
-R30
+R11
 !i10b 1
-R31
-R32
-R33
+R12
+R27
+R28
 !i113 1
 R15
 R16
 Eexecute_stage
-Z34 w1701698986
+R0
 R1
 R2
 R3
@@ -189,19 +189,19 @@ R4
 R5
 R6
 R7
-Z35 8D:/faculty/arch/Project/Arch-Project/stages/execute-circuit.vhdl
-Z36 FD:/faculty/arch/Project/Arch-Project/stages/execute-circuit.vhdl
+Z29 8D:/faculty/arch/Project/Arch-Project/stages/execute-circuit.vhdl
+Z30 FD:/faculty/arch/Project/Arch-Project/stages/execute-circuit.vhdl
 l0
 L10
 V?9XJS0S1dR;BZDk1ne4MW3
 !s100 ioa9^J^h753W2?HM>L8U91
 R10
 32
-R30
+Z31 !s110 1702799743
 !i10b 1
-R31
-Z37 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/execute-circuit.vhdl|
-Z38 !s107 D:/faculty/arch/Project/Arch-Project/stages/execute-circuit.vhdl|
+R12
+Z32 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/execute-circuit.vhdl|
+Z33 !s107 D:/faculty/arch/Project/Arch-Project/stages/execute-circuit.vhdl|
 !i113 1
 R15
 R16
@@ -219,33 +219,33 @@ VMf:iUdIJ9HY3L1[^<EYdW2
 !s100 b`7zf0NDA]XT9hzEEAn;00
 R10
 32
-R30
-!i10b 1
 R31
-R37
-R38
+!i10b 1
+R12
+R32
+R33
 !i113 1
 R15
 R16
 Efetch_stage
-Z39 w1701876196
+R0
 R1
 R5
 R6
 R7
-Z40 8D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl
-Z41 FD:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl
+Z34 8D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl
+Z35 FD:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl
 l0
 L5
 VjlO:NdlOG?1SM5Cnmj2632
 !s100 j3^KLKlJ^S6FVdMbeP3:32
 R10
 32
-R30
-!i10b 1
 R31
-Z42 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl|
-Z43 !s107 D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl|
+!i10b 1
+Z36 !s108 1702799743.000000
+Z37 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl|
+Z38 !s107 D:/faculty/arch/Project/Arch-Project/stages/fetch-circuit.vhdl|
 !i113 1
 R15
 R16
@@ -260,23 +260,23 @@ V4m@WB9ha4XH1cP95;jOLz1
 !s100 R4?c0iQaDMVXPb;0z_[hW1
 R10
 32
-R30
-!i10b 1
 R31
-R42
-R43
+!i10b 1
+R36
+R37
+R38
 !i113 1
 R15
 R16
 Egenericmux
-R22
+R0
 R3
 R4
 R5
 R6
 R7
-Z44 8D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl
-Z45 FD:/faculty/arch/Project/Arch-Project/alu/mux.vhdl
+Z39 8D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl
+Z40 FD:/faculty/arch/Project/Arch-Project/alu/mux.vhdl
 l0
 L6
 VdK`n@JMC3hH_>diQcWG4`2
@@ -286,8 +286,8 @@ R10
 R11
 !i10b 1
 R12
-Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl|
-Z47 !s107 D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl|
+Z41 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl|
+Z42 !s107 D:/faculty/arch/Project/Arch-Project/alu/mux.vhdl|
 !i113 1
 R15
 R16
@@ -306,32 +306,32 @@ R10
 R11
 !i10b 1
 R12
-R46
-R47
+R41
+R42
 !i113 1
 R15
 R16
 Egenreg
-Z48 w1701264327
+Z43 w1701264327
 R1
 R4
 R3
 R5
 R6
 R7
-Z49 8D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl
-Z50 FD:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl
+Z44 8D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl
+Z45 FD:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl
 l0
 L7
 V[EJDlCee[;2AlF@eMSf]z1
 !s100 MG68j<S?`K9[S4hA9SbfY3
 R10
 32
-R30
+R11
 !i10b 1
 R12
-Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl|
-Z52 !s107 D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl|
+Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl|
+Z47 !s107 D:/faculty/arch/Project/Arch-Project/memory-elements/register.vhdl|
 !i113 1
 R15
 R16
@@ -348,33 +348,33 @@ VFUNK=_<XSiL63Mbh^[WNz0
 !s100 dR:^L:eh=j`h=[h2=bd7O3
 R10
 32
-R30
+R11
 !i10b 1
 R12
-R51
-R52
+R46
+R47
 !i113 1
 R15
 R16
 Ehazard_detection_unit
-Z53 w1701627762
+Z48 w1701627762
 R1
 R5
 R6
 R7
-Z54 8D:/faculty/arch/Project/Arch-Project/standard-cells/hazard-detection-unit.vhd
-Z55 FD:/faculty/arch/Project/Arch-Project/standard-cells/hazard-detection-unit.vhd
+Z49 8D:/faculty/arch/Project/Arch-Project/standard-cells/hazard-detection-unit.vhd
+Z50 FD:/faculty/arch/Project/Arch-Project/standard-cells/hazard-detection-unit.vhd
 l0
 L5
 VEOnYhmmdo397h;ZclodR60
 !s100 Nl3Y6@`TXl8GY;MD8ZDg^2
 R10
 32
-R30
-!i10b 1
 R31
-Z56 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/standard-cells/hazard-detection-unit.vhd|
-Z57 !s107 D:/faculty/arch/Project/Arch-Project/standard-cells/hazard-detection-unit.vhd|
+!i10b 1
+R36
+Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/standard-cells/hazard-detection-unit.vhd|
+Z52 !s107 D:/faculty/arch/Project/Arch-Project/standard-cells/hazard-detection-unit.vhd|
 !i113 1
 R15
 R16
@@ -389,24 +389,24 @@ VP4>f=c5m9a:]nBMGG7XCS3
 !s100 87e1eTlYdBT<>6dA[R4493
 R10
 32
-R30
-!i10b 1
 R31
-R56
-R57
+!i10b 1
+R36
+R51
+R52
 !i113 1
 R15
 R16
 Einterrupt_control
-Z58 w1701876106
+R0
 R1
 R4
 R3
 R5
 R6
 R7
-Z59 8D:/faculty/arch/Project/Arch-Project/interrupt-control/interrupt_control.vhdl
-Z60 FD:/faculty/arch/Project/Arch-Project/interrupt-control/interrupt_control.vhdl
+Z53 8D:/faculty/arch/Project/Arch-Project/interrupt-control/interrupt_control.vhdl
+Z54 FD:/faculty/arch/Project/Arch-Project/interrupt-control/interrupt_control.vhdl
 l0
 L6
 VgcW^kVe@5DgAQ^LJ7E^;E2
@@ -416,8 +416,8 @@ R10
 R11
 !i10b 1
 R12
-Z61 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/interrupt-control/interrupt_control.vhdl|
-Z62 !s107 D:/faculty/arch/Project/Arch-Project/interrupt-control/interrupt_control.vhdl|
+Z55 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/interrupt-control/interrupt_control.vhdl|
+Z56 !s107 D:/faculty/arch/Project/Arch-Project/interrupt-control/interrupt_control.vhdl|
 !i113 1
 R15
 R16
@@ -437,20 +437,20 @@ R10
 R11
 !i10b 1
 R12
-R61
-R62
+R55
+R56
 !i113 1
 R15
 R16
 Ememory
-Z63 w1701871729
+R0
 R2
 R1
 R5
 R6
 R7
-Z64 8D:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl
-Z65 FD:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl
+Z57 8D:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl
+Z58 FD:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl
 l0
 L7
 V:oHA^dlW[S8oN@<gY`1fL1
@@ -460,8 +460,8 @@ R10
 R11
 !i10b 1
 R12
-Z66 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl|
-Z67 !s107 D:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl|
+Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl|
+Z60 !s107 D:/faculty/arch/Project/Arch-Project/memory-elements/memory.vhdl|
 !i113 1
 R15
 R16
@@ -480,30 +480,30 @@ R10
 R11
 !i10b 1
 R12
-R66
-R67
+R59
+R60
 !i113 1
 R15
 R16
 Ememory_stage
-Z68 w1701695642
+R0
 R1
 R5
 R6
 R7
-Z69 8D:/faculty/arch/Project/Arch-Project/stages/memory-circuit.vhdl
-Z70 FD:/faculty/arch/Project/Arch-Project/stages/memory-circuit.vhdl
+Z61 8D:/faculty/arch/Project/Arch-Project/stages/memory-circuit.vhdl
+Z62 FD:/faculty/arch/Project/Arch-Project/stages/memory-circuit.vhdl
 l0
 L5
 V3LYE84e7cRN997lGLN4Aa2
 !s100 9oinzQ5QT1kOMl27z27:i0
 R10
 32
-R30
-!i10b 1
 R31
-Z71 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/memory-circuit.vhdl|
-Z72 !s107 D:/faculty/arch/Project/Arch-Project/stages/memory-circuit.vhdl|
+!i10b 1
+R36
+Z63 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/memory-circuit.vhdl|
+Z64 !s107 D:/faculty/arch/Project/Arch-Project/stages/memory-circuit.vhdl|
 !i113 1
 R15
 R16
@@ -518,23 +518,23 @@ V:i98_8[jSO;k^hl7deQbj1
 !s100 Td5n42o?7Em3?9j7g<9GB2
 R10
 32
-R30
-!i10b 1
 R31
-R71
-R72
+!i10b 1
+R36
+R63
+R64
 !i113 1
 R15
 R16
 En_bit_adder
-R22
+R0
 R3
 R4
 R5
 R6
 R7
-Z73 8D:/faculty/arch/Project/Arch-Project/alu/n-bit-adder.vhdl
-Z74 FD:/faculty/arch/Project/Arch-Project/alu/n-bit-adder.vhdl
+Z65 8D:/faculty/arch/Project/Arch-Project/alu/n-bit-adder.vhdl
+Z66 FD:/faculty/arch/Project/Arch-Project/alu/n-bit-adder.vhdl
 l0
 L8
 VTSZ66dL1SnjU1GhZYk>iK2
@@ -544,8 +544,8 @@ R10
 R11
 !i10b 1
 R12
-Z75 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/n-bit-adder.vhdl|
-Z76 !s107 D:/faculty/arch/Project/Arch-Project/alu/n-bit-adder.vhdl|
+Z67 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/n-bit-adder.vhdl|
+Z68 !s107 D:/faculty/arch/Project/Arch-Project/alu/n-bit-adder.vhdl|
 !i113 1
 R15
 R16
@@ -564,20 +564,20 @@ R10
 R11
 !i10b 1
 R12
-R75
-R76
+R67
+R68
 !i113 1
 R15
 R16
 Eone_bit_adder
-R22
+R0
 R3
 R4
 R5
 R6
 R7
-Z77 8D:/faculty/arch/Project/Arch-Project/alu/one-bit-adder.vhdl
-Z78 FD:/faculty/arch/Project/Arch-Project/alu/one-bit-adder.vhdl
+Z69 8D:/faculty/arch/Project/Arch-Project/alu/one-bit-adder.vhdl
+Z70 FD:/faculty/arch/Project/Arch-Project/alu/one-bit-adder.vhdl
 l0
 L7
 Vm?1MEB?RDFfMD`5m9iT`F2
@@ -587,8 +587,8 @@ R10
 R11
 !i10b 1
 R12
-Z79 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/one-bit-adder.vhdl|
-Z80 !s107 D:/faculty/arch/Project/Arch-Project/alu/one-bit-adder.vhdl|
+Z71 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/one-bit-adder.vhdl|
+Z72 !s107 D:/faculty/arch/Project/Arch-Project/alu/one-bit-adder.vhdl|
 !i113 1
 R15
 R16
@@ -607,31 +607,31 @@ R10
 R11
 !i10b 1
 R12
-R79
-R80
+R71
+R72
 !i113 1
 R15
 R16
 Eprocessor
-Z81 w1701871132
+R0
 R3
 R4
 R5
 R6
 R7
-Z82 8D:/faculty/arch/Project/Arch-Project/Processor.vhdl
-Z83 FD:/faculty/arch/Project/Arch-Project/Processor.vhdl
+Z73 8D:/faculty/arch/Project/Arch-Project/Processor.vhdl
+Z74 FD:/faculty/arch/Project/Arch-Project/Processor.vhdl
 l0
 L6
 V;:fg5BGEG5eQNSf;VY37d1
 !s100 STWccf4PiE:K?AZPgYKZ;2
 R10
 32
-R30
-!i10b 1
 R31
-Z84 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/Processor.vhdl|
-Z85 !s107 D:/faculty/arch/Project/Arch-Project/Processor.vhdl|
+!i10b 1
+R36
+Z75 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/Processor.vhdl|
+Z76 !s107 D:/faculty/arch/Project/Arch-Project/Processor.vhdl|
 !i113 1
 R15
 R16
@@ -640,42 +640,42 @@ R3
 R4
 R5
 R6
-Z86 DEx4 work 9 processor 0 22 ;:fg5BGEG5eQNSf;VY37d1
+DEx4 work 9 processor 0 22 ;:fg5BGEG5eQNSf;VY37d1
 l223
 L18
-Z87 VcQL<0WijaL2?[o>m5zJz[0
-Z88 !s100 [=7B9XcKN@76SaZa<fU@22
+VcQL<0WijaL2?[o>m5zJz[0
+!s100 [=7B9XcKN@76SaZa<fU@22
 R10
 32
-R30
-!i10b 1
 R31
-R84
-R85
+!i10b 1
+R36
+R75
+R76
 !i113 1
 R15
 R16
 Eregfile
-Z89 w1701631615
+Z77 w1701631615
 R1
 R4
 R3
 R5
 R6
 R7
-Z90 8D:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl
-Z91 FD:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl
+Z78 8D:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl
+Z79 FD:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl
 l0
 L6
 Vm?Z7i>I90HNC75TK<aWdk2
 !s100 og>oEkzOP;fCg]1ZVFZCD3
 R10
 32
-R30
+R11
 !i10b 1
-R31
-Z92 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl|
-Z93 !s107 D:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl|
+R12
+Z80 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl|
+Z81 !s107 D:/faculty/arch/Project/Arch-Project/memory-elements/register-file.vhdl|
 !i113 1
 R15
 R16
@@ -692,23 +692,23 @@ VGVV@5WH7U>NSnP9JTmEf[2
 !s100 <^cVG0eigZ3CF3SQ:@k=H3
 R10
 32
-R30
+R11
 !i10b 1
-R31
-R92
-R93
+R12
+R80
+R81
 !i113 1
 R15
 R16
 Esignextend
-R22
+R0
 R3
 R4
 R5
 R6
 R7
-Z94 8D:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhdl
-Z95 FD:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhdl
+Z82 8D:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhdl
+Z83 FD:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhdl
 l0
 L6
 Vc4:JjLlZ]7W9K7JG]J?1g0
@@ -718,8 +718,8 @@ R10
 R11
 !i10b 1
 R12
-Z96 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhdl|
-Z97 !s107 D:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhdl|
+Z84 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhdl|
+Z85 !s107 D:/faculty/arch/Project/Arch-Project/alu/sign-extend.vhdl|
 !i113 1
 R15
 R16
@@ -738,30 +738,71 @@ R10
 R11
 !i10b 1
 R12
-R96
-R97
+R84
+R85
 !i113 1
 R15
 R16
-Ewriteback_stage
-Z98 w1701636398
+Especial_instruction_handler
+Z86 w1702799738
 R1
 R5
 R6
 R7
-Z99 8D:/faculty/arch/Project/Arch-Project/stages/writeback-circuit.vhdl
-Z100 FD:/faculty/arch/Project/Arch-Project/stages/writeback-circuit.vhdl
+Z87 8D:/faculty/arch/Project/Arch-Project/standard-cells/special-instruction-handler.vhd
+Z88 FD:/faculty/arch/Project/Arch-Project/standard-cells/special-instruction-handler.vhd
+l0
+L5
+V@R93homH2GMZ<4HNUc;PO3
+!s100 :iK5AC7SJe>@lhQA>oI1]3
+R10
+32
+R31
+!i10b 1
+R36
+Z89 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/standard-cells/special-instruction-handler.vhd|
+Z90 !s107 D:/faculty/arch/Project/Arch-Project/standard-cells/special-instruction-handler.vhd|
+!i113 1
+R15
+R16
+Aspecial_instruction_handler_architecture
+R1
+R5
+R6
+Z91 DEx4 work 27 special_instruction_handler 0 22 @R93homH2GMZ<4HNUc;PO3
+l22
+L16
+VEIY[<1c50ViOc^M:7IdWk2
+!s100 Y3n[^d3iWMbOhgzL3EZ3K2
+R10
+32
+R31
+!i10b 1
+R36
+R89
+R90
+!i113 1
+R15
+R16
+Ewriteback_stage
+Z92 w1701636398
+R1
+R5
+R6
+R7
+Z93 8D:/faculty/arch/Project/Arch-Project/stages/writeback-circuit.vhdl
+Z94 FD:/faculty/arch/Project/Arch-Project/stages/writeback-circuit.vhdl
 l0
 L5
 VMPlzB0XgVf;STc8dPclOf3
 !s100 ]cQbg7Z@6JLoWU2M]^SXX0
 R10
 32
-R30
-!i10b 1
 R31
-Z101 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/writeback-circuit.vhdl|
-Z102 !s107 D:/faculty/arch/Project/Arch-Project/stages/writeback-circuit.vhdl|
+!i10b 1
+R36
+Z95 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/faculty/arch/Project/Arch-Project/stages/writeback-circuit.vhdl|
+Z96 !s107 D:/faculty/arch/Project/Arch-Project/stages/writeback-circuit.vhdl|
 !i113 1
 R15
 R16
@@ -776,11 +817,11 @@ VBPflFh6^Z;kZ@_j`]I[;K1
 !s100 lzEDPo6N^EKb76EDEIYD^0
 R10
 32
-R30
-!i10b 1
 R31
-R101
-R102
+!i10b 1
+R36
+R95
+R96
 !i113 1
 R15
 R16
