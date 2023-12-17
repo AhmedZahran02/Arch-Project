@@ -26,9 +26,10 @@ BEGIN
         WHEN ((source_1_address = memory_destination) AND(memory_will_write_back = '1')) ELSE
         "00";
 
-    hazard_operand_2_selector <= "01" WHEN ((source_2_address = execute_destination) AND(execute_will_write_back = '1'))ELSE
-        "10"
-        WHEN ((source_2_address = memory_destination) AND(memory_will_write_back = '1')) ELSE
+    hazard_operand_2_selector <= 
+        "00" WHEN (is_one_operand = '1') OR (input_port_select = '1') OR (has_immediate_value = '1') ELSE
+        "01" WHEN ((source_2_address = execute_destination) AND(execute_will_write_back = '1'))      ELSE
+        "10" WHEN ((source_2_address = memory_destination) AND(memory_will_write_back = '1'))        ELSE
         "00";
 
 END hazard_detection_unit_architecture;

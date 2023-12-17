@@ -22,7 +22,8 @@ reset: IN STD_LOGIC;
 currentPc : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
 instructionOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
 instructionMemoryOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-waitFor : OUT STD_LOGIC_VECTOR(1 DOWNTO 0)
+waitFor : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
+nextCalculatedPC : OUT std_logic_vector(31 downto 0)
 );
 END fetch_stage;
 
@@ -150,11 +151,14 @@ u4 : GenericMux GENERIC MAP(32, 1) PORT MAP(pcMaskedInput, forcePc, pcMaskedValu
 
 pcReset <= reset and (not forcePc(0));
 
+nextCalculatedPC <= pcMaskedValue;
+
 u5 : genReg PORT MAP(pcMaskedValue, '1', clk, reset, inCurrentPc);
 
 addressMaskedInput <= nextAddress & inCurrentPc;
 
 u6 : GenericMux GENERIC MAP(32, 1) PORT MAP(addressMaskedInput, takeMemoryControl, addressMaskedValue);
+
 
 u7 : memory PORT MAP((OTHERS => '0') ,addressMaskedValue(11 downto 0), '0', '0', '0', '0', clk, reset, instrNonMaskedValueTemp);
 

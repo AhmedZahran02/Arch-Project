@@ -1,0 +1,138 @@
+{D:/faculty/arch/Project V2/Arch-Project/memory-elements/register-file.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/memory-elements/register-file.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Compiling entity regFile
+-- Compiling architecture Behavioral of regFile
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/standard-cells/hazard-detection-unit.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/standard-cells/hazard-detection-unit.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity hazard_detection_unit
+-- Compiling architecture hazard_detection_unit_architecture of hazard_detection_unit
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/counter/counter.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/counter/counter.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity counter
+-- Compiling architecture counter_archticture of counter
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/memory-elements/register.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/memory-elements/register.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Compiling entity genReg
+-- Compiling architecture Behavioral of genReg
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/stages/fetch-circuit.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/stages/fetch-circuit.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity fetch_stage
+-- Compiling architecture fetch_stage_architecture of fetch_stage
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/stages/decode-circuit.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/stages/decode-circuit.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity decode_stage
+-- Compiling architecture decode_stage_architecture of decode_stage
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/control-unit/control-unit.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/control-unit/control-unit.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity controlUnit
+-- Compiling architecture controlUnit_architecture of controlUnit
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/standard-cells/special-instruction-handler.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/standard-cells/special-instruction-handler.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity special_instruction_handler
+-- Compiling architecture special_instruction_handler_architecture of special_instruction_handler
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/interrupt-control/interrupt_control.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/interrupt-control/interrupt_control.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Compiling entity interrupt_control
+-- Compiling architecture interrupt_control_archticture of interrupt_control
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/stages/memory-circuit.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/stages/memory-circuit.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity memory_stage
+-- Compiling architecture memory_stage_architecture of memory_stage
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/standard-cells/forwarding-unit.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/standard-cells/forwarding-unit.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity forwarding_unit
+-- Compiling architecture forwarding_unit_architecture of forwarding_unit
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/stages/execute-circuit.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/stages/execute-circuit.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package std_logic_textio
+-- Loading package NUMERIC_STD
+-- Compiling entity execute_stage
+-- Compiling architecture execute_stage_arch of execute_stage
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/stages/writeback-circuit.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/stages/writeback-circuit.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity writeback_stage
+-- Compiling architecture writeback_stage_architecture of writeback_stage
+
+} {} {}} {D:/faculty/arch/Project V2/Arch-Project/memory-elements/memory.vhdl} {1 {vcom -work work -2002 -explicit -stats=none {D:/faculty/arch/Project V2/Arch-Project/memory-elements/memory.vhdl}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package std_logic_textio
+-- Compiling entity memory
+-- Compiling architecture memory_architecture of memory
+
+} {} {}}
