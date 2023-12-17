@@ -28,36 +28,34 @@ BEGIN
         IF rising_edge(clk) THEN
             IF isSwap = '1' THEN
                 IF tempCount = 0 THEN
-                    nextInstruction <= "0000000000000011";
+                    nextInstruction <= "01100" & instructionIn(4 downto 2) & instructionIn(7 downto 5) & instructionIn(4 downto 2) & "00";
                     tempCount <= tempCount + 1;
                 ELSIF tempCount = 1 THEN
-                    nextInstruction <= "0000000000000111";
+                    nextInstruction <= "01100" & instructionIn(7 downto 5) & instructionIn(7 downto 5) & instructionIn(4 downto 2) & "00";
                     tempCount <= tempCount + 1;
-                ELSE
-                    isSwap <= '0';
                     isSpecial <= '0';
+                    isSwap <= '0';
+            -- Swap Operation Detected
                 END IF;
             ELSIF isRet = '1' THEN
                 IF tempCount = 0 THEN
-                    nextInstruction <= "1100000000000000";
+                    nextInstruction <= "1110100000000000";
                     tempCount <= tempCount + 1;
-                ELSIF tempCount = 1 THEN
-                    nextInstruction <= "1110000000000000";
-                    tempCount <= tempCount + 1;
-                ELSE
                     isRet <= '0';
                     isSpecial <= '0';
                 END IF;
+            -- Swap Operation Detected
             ELSIF instructionIn(15 DOWNTO 11) = "11110" THEN
                 isSpecial <= '1';
                 isSwap <= '1';
                 tempCount <= 0;
-                nextInstruction <= "0000000000000001";
+                nextInstruction <= "01100" & instructionIn(7 downto 5) & instructionIn(7 downto 5) & instructionIn(4 downto 2) & "00";
+            -- Ret Operation Detected
             ELSIF instructionIn(15 DOWNTO 11) = "11111" THEN
                 isSpecial <= '1';
                 isRet <= '1';
                 tempCount <= 0;
-                nextInstruction <= "1000000000000000";
+                nextInstruction <= "1010000000000000";
             ELSE
                 nextInstruction <= instructionIn;
             END IF;

@@ -28,7 +28,9 @@ instructions = {
     'JZ': '11010',
     'JMP': '11011',
     'CALL': '11100',
-    'RET': '11101'
+    'RET': '11101',
+    'SWAP': '11110',
+    'RETI': '11111'
 }
 # Imm = [
 #     'ADDI','BITSET','RCL','RCR','LDM'
@@ -63,7 +65,9 @@ last_2_bits = {
     'JZ': '01',
     'JMP': '01',
     'CALL': '01',
-    'RET': '11'
+    'RET': '11',
+    'SWAP': '00',
+    'RETI': '11'
 }
 
 registers = {
