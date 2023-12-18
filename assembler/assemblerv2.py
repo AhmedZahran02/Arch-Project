@@ -138,8 +138,8 @@ def assemble(file_path):
             else:
                 Rdst, Rsrc1, Rsrc2 = 'R0', 'R0', 'R0' 
 
-            # Handle compare
-            if instruction == "CMP":
+            # Handle swap
+            if instruction == "SWAP":
                 machine_code = instructions[instruction] + registers['R0'] + registers[Rdst] + registers[Rsrc1]
             else:
                 machine_code = instructions[instruction] + registers[Rdst] + registers[Rsrc1] + registers[Rsrc2]
@@ -171,7 +171,10 @@ def write_to_file(memory, output_file='out.txt'):
     with open(output_file, 'w') as out_file:
         for address, machine_code in sorted(memory.items()):
             out_file.write(f"{machine_code}\n")
-            #out_file.write(f"{hex(address)[2:]}: {machine_code}\n")
+            # out_file.write(f"{hex(address)[2:]}: {machine_code}\n")
+    with open("memory.txt", 'w') as out_file:
+        for address, machine_code in sorted(memory.items()):
+            out_file.write(f"{hex(address)[2:]}: {machine_code}\n")
 
 
 file_path = 'inst2.asm'

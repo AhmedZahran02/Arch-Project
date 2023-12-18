@@ -8,6 +8,17 @@
 .ORG 2  #this is the interrupt address
 100
 
+.data
+20
+40
+60
+101
+.ORG 50
+554
+565
+202
+
+.code
 .ORG 10
 NOP            #No change
 CMP R1       , R2
@@ -24,4 +35,5 @@ CALL R1
 
 NOP
 NOP
+SWAP R1,R2
 
