@@ -1,7 +1,6 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use ieee.std_logic_textio.all;
 use std.textio.all;
@@ -42,21 +41,18 @@ component GenericMux is
     );
 end component GenericMux;
 
-    function binary_to_integer(bin_val : std_logic_vector) return natural is
-        variable result : natural := 0;
-    begin
-        for i in bin_val'range loop
-            if result < 32 then
-            result := result * 2;
-            else
-                result := 0;
-            end if; 
-            if bin_val(i) = '1' then
-                result := result + 1;
-            end if;
-        end loop;
-        return result;
-    end function;
+    -- function binary_to_integer(bin_val : std_logic_vector) return natural is
+    --     variable result : natural := 0;
+    --     variable temp : natural := 1;
+    -- begin
+    --     for i in 31 to 24 loop
+    --         if bin_val(i) = '1' then
+    --             result := result + temp;
+    --         end if;
+    --         temp := temp * 2; 
+    --     end loop;
+    --     return result;
+    -- end function;
 
 signal NOP,INC_OUT,DEC_OUT,AND_OUT,OR_OUT,XOR_OUT,ADD_OUT,SUB_OUT,Neg_OUT,Data1_Bar,Data2_Bar,BITSET_OUT,buff :std_logic_vector(n-1 downto 0);
 signal RR_OUT,RL_OUT,RL,RR :std_logic_vector(n downto 0);
@@ -66,6 +62,9 @@ signal Index, anotherIndex,currentbit : natural;
 signal oneVector: std_logic_vector(n - 1 downto 0) := "00000000000000000000000000000001";
 signal dummy32: std_logic_vector(n - 1 downto 0) := "00000000000000000000000000000000";--- you can remove the dummy if you want to add a new operation
 
+signal dummyMoa : std_logic;
+
+signal rbimmediate: integer;
 begin
 
 
@@ -95,9 +94,10 @@ addition: n_bit_adder GENERIC MAP (n) port map (Data1,Data2,'0',ADD_Out,C1_add);
 subtraction: n_bit_adder GENERIC MAP (n) port map (Data1,Data2_Bar,'1',SUB_OUT,dummy2);
 
 
-C1_dec <= '1' when Sel = "0100" and Data1 <= 0
+C1_dec <= dummy1 when Sel = "0100"
 	else '0';
-C1_sub <= '1' when Sel = "1000" and Data2 < Data1
+
+C1_sub <= dummy2 when Sel = "1000"
 	else '0';
 
 --and op1 op2 => 1001
@@ -109,19 +109,14 @@ OR_OUT <= Data1 OR Data2;
 --xor op1 op2 => 1011
 XOR_OUT <= Data1 XOR Data2;
 
---Bitset op1 op2 => 1100
-process (Data1,Sel)
-begin
-        currentbit <= binary_to_integer(Data2);
-end process;
+rbimmediate <= to_integer(unsigned(Data2(5 downto 0)));
 
-process(Data1, currentbit)
+process(Data1,Data2,Sel,rbimmediate)
         variable temp_result : STD_LOGIC_VECTOR(n - 1 downto 0);
     begin
-        if currentbit >= 0 and currentbit <= n - 1 then
+        if rbimmediate >= 0 and rbimmediate <= n - 1 then
             temp_result := Data1;
-            temp_result(currentbit) := '1';
-     
+            temp_result(rbimmediate) := '1';
             BITSET_OUT <= temp_result;
         else
             BITSET_OUT <= Data1;
@@ -130,18 +125,20 @@ end process;
 
 C1_setbit <= '1';
 --RCL op1 op1 => 1101
-process (Data1, Data2,Sel)
+process (Data1, Data2,Sel,rbimmediate,FlagsIn)
 begin
 	RL(0) <= FlagsIn(2);
 	RL(n downto 1) <= Data1(n - 1 downto 0);
-        anotherIndex <= binary_to_integer(Data2);
+    if rbimmediate >= 0 and rbimmediate <= 31 then
+        anotherIndex <= rbimmediate;
+    end if;
 end process;
 
-process (Data1, Data2, anotherIndex,RL ,Sel)
+process (Data1, Data2, anotherIndex,RL ,Sel,FlagsIn)
 begin
     if anotherIndex < 32 and anotherIndex >= 0 then
         RL_OUT <= (others=>'0');
-            RL_OUT (anotherIndex - 1 downto 0) <= RL(n downto n - anotherIndex + 1);
+        RL_OUT (anotherIndex - 1 downto 0) <= RL(n downto n - anotherIndex + 1);
         RL_OUT (n downto anotherIndex) <= RL(n - anotherIndex downto 0);
     end if;
 end process;
@@ -149,30 +146,33 @@ end process;
 C1_RL <= RL_OUT(0);
 
 --RCR op1 op1 => 1110
-process (Data1, Data2,Sel)
+process (Data1, Data2,Sel,rbimmediate,FlagsIn)
 begin
 	RR(0) <= FlagsIn(2);
 	RR(n downto 1) <= Data1(n - 1 downto 0);
-        Index <= binary_to_integer(Data2);
+    if rbimmediate >= 0 and rbimmediate <= 31 then
+        Index <= rbimmediate;
+    end if;
 end process;
 
-process (Data1, Data2, Index,RR,Sel)
+process (Data1, Data2, Index,RR,Sel,FlagsIn)
 begin
     if Index < 32 and Index >= 0 then
         RR_OUT <= (others=>'0');
-            RR_OUT (n downto n - Index + 1) <= RR(Index - 1 downto 0);
+        RR_OUT (n downto n - Index + 1) <= RR(Index - 1 downto 0);
         RR_OUT (n - Index downto 0) <= RR(n downto Index);
     end if;
 end process;
 
 C1_RR <= RR_OUT(0);
 
-Mux_Input <= dummy32 & RR_OUT (n  downto 1)&RL_OUT (n  downto 1)& BITSET_OUT  & XOR_OUT & OR_OUT & AND_OUT &SUB_OUT & ADD_Out & Data2 & Data1 & DEC_OUT& INC_OUT & Neg_OUT & Data1_Bar &  NOP;
+Mux_Input <= XOR_OUT & RR_OUT (n  downto 1)&RL_OUT (n  downto 1)& BITSET_OUT  & XOR_OUT & OR_OUT & AND_OUT &SUB_OUT & ADD_Out & Data2 & Data1 & DEC_OUT& INC_OUT & Neg_OUT & Data1_Bar &  NOP;
 
 selectTheOutput: GenericMux GENERIC MAP (n,SelSize) port map (Mux_Input,Sel,buff);
 
 --carry flag
-FlagsOut(2) <= C1_inc when  Sel="0011"
+FlagsOut(2) <= 
+    C1_inc when  Sel="0011"
 	else C1_dec when Sel = "0100"  
 	else C1_add when Sel = "0111" 
 	else C1_sub when Sel = "1000"
@@ -182,12 +182,14 @@ FlagsOut(2) <= C1_inc when  Sel="0011"
 	else FlagsIn(2) ;
 
 --negative flag
-FlagsOut(1) <= buff(n - 1) when Sel /= "1111" 
-    else FlagsIn(1);
+FlagsOut(1) <= FlagsIn(1) when (Sel = "0000" or Sel = "1111" or Sel = "0101" or Sel = "0110" or Sel = "1100")
+    else buff(n - 1);
 
+dummyMoa <= '1' When buff = "00000000000000000000000000000000" else '0';
 --zero flag
-FlagsOut(0) <= '1' When buff = "00000000000000000000000000000000" and Sel /= "0000" -- NOP
-else '0' ;
+FlagsOut(0) <= FlagsIn(0) WHEN (Sel = "0000" or Sel = "1111" or Sel = "0101" or Sel = "0110" or Sel = "1100") ELSE
+               '1' WHEN buff = "00000000000000000000000000000000" ELSE
+               '0';
 
 DataOut <= buff;
 

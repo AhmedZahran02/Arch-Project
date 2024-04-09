@@ -22,8 +22,7 @@ currentPc : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
 instructionOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
 instructionMemoryOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
 waitFor : OUT STD_LOGIC_VECTOR(1 downto 0);
-nextCalculatedPC : OUT std_logic_vector(31 downto 0);
-stall_flush_counter : in std_logic
+nextCalculatedPC : OUT std_logic_vector(31 downto 0)
 );
 END fetch_stage;
 
@@ -87,17 +86,14 @@ clk : IN STD_LOGIC;
 reset : IN STD_LOGIC;
 load_enable : IN STD_LOGIC;
 load_data : IN STD_LOGIC_VECTOR(n - 1 DOWNTO 0);
-result : OUT std_logic_vector(n-1 downto 0);
-next_count : OUT std_logic_vector(n-1 downto 0);
-counter_enable : IN std_logic
+result : OUT std_logic_vector(n-1 downto 0)
 );
 END COMPONENT;
 
 COMPONENT special_instruction_handler IS
     PORT (
         instructionIn : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-        clk, bypass : IN STD_LOGIC;
-        current_pc : in std_logic_vector(31 downto 0);
+        clk : IN STD_LOGIC;
 
         --==================================================================
         instructionOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
@@ -133,17 +129,9 @@ signal pcReset : std_logic;
 signal negClk : std_logic;
 signal holdPcCounter: std_logic_vector(0 downto 0);
 signal flushNextInstruction : std_logic;
-signal passNextInstruction : std_logic;
+-- signal specialInstructionCircuitInput: std_logic_vector(15 downto 0);
+-- signal isSpecial : std_logic;
 
-signal specialCount : std_logic_vector(1 downto 0);
-signal specialInstructionCircuitInput: std_logic_vector(15 downto 0);
-signal isSpecial : std_logic;
-
-signal next_count : std_logic_vector(1 downto 0);
-signal next_flush : std_logic_vector(15 downto 0);
-signal instruction_waitfor : std_logic_vector(1 downto 0);
-signal latch_reset : std_logic;
-signal counter_enable : std_logic;
 BEGIN
 
 PROCESS (inCurrentPc) BEGIN
@@ -151,32 +139,13 @@ currentPc <= inCurrentPc;
 END PROCESS;
 
 PROCESS (instrMaskedValue,counterResult) BEGIN
-IF reset = '1' then
-  waitFor <= "00";
-else
-  waitFor <= (instruction_waitfor) or (next_count) or specialCount;
-end if;
+waitFor <= (instrMaskedValue(1) & instrMaskedValue(0)) or counterResult;
 instructionOut <= instrMaskedValue;
 END PROCESS;
 
-passNextInstruction <= not flushNextInstruction;
-latch_reset <= reset or flushNextInstruction;
-
-genreg_inst: genReg
-generic map (
-  REG_SIZE    => 2
-)
-port map (
-  dataIn      => instrMaskedValue(1 downto 0),
-  writeEnable => passNextInstruction,
-  clk         => clk,
-  rst         => latch_reset,
-  dataOut     => instruction_waitfor
-);
-
 one(0) <= '1';
 concatZeroOne <= zero & one;
-holdPcCounter(0) <= holdPc or isSpecial;
+holdPcCounter(0) <= holdPc ;
 u1 : GenericMux PORT MAP(concatZeroOne, holdPcCounter, pcAddValue);
 
 u2 : n_bit_adder PORT MAP(inCurrentPc, pcAddValue, Cin, pcaddedValue, Cout);
@@ -192,37 +161,31 @@ u4 : GenericMux GENERIC MAP(32, 1) PORT MAP(pcMaskedInput, forcePc, pcMaskedValu
 
 pcReset <= reset and (not forcePc(0));
 
-nextCalculatedPC <= pcNonMaskedValue WHEN isJumpZero = '0' ELSE pcaddedValue;
+nextCalculatedPC <= pcNonMaskedValue;
 negClk <= not clk;
 
 u5 : genReg PORT MAP(pcMaskedValue, '1', negClk, pcReset, inCurrentPc);
 
 u7 : memory PORT MAP((OTHERS => '0') ,inCurrentPc(11 downto 0), '0', '0', '0', '0', clk, reset, instrNonMaskedValueTemp);
 instructionMemoryOut <= instrNonMaskedValueTemp(15 downto 0);
-specialInstructionCircuitInput <= instrNonMaskedValueTemp(15 DOWNTO 0) when forceInstruction(0) = '0' else (others => '0');
-
-special_instruction_handler_inst: special_instruction_handler
-port map (
-  instructionIn    => specialInstructionCircuitInput,
-  clk              => clk,
-  bypass           => forceInstruction(0),
-  instructionOut   => instrNonMaskedValue,
-  isSpecial        => isSpecial,
-  stallCyclesCount => specialCount,
-  current_pc       => inCurrentPc
-);
-
-next_flush <= NOP or ("00000000000000" & next_count);
-
-instrMaskedInput <= nextInstruction & nextInstruction & next_flush & instrNonMaskedValue;
+instrNonMaskedValue <= instrNonMaskedValueTemp(15 DOWNTO 0);
+instrMaskedInput <= nextInstruction & nextInstruction & NOP & instrNonMaskedValue;
 flushNextInstruction <= '0' WHEN counterResult = "00" ELSE '1';
 instrMaskedSel <= forceInstruction & flushNextInstruction;
 
 u8 : GenericMux GENERIC MAP(16, 2) PORT MAP(instrMaskedInput, instrMaskedSel, instrMaskedValue);
 
+-- special_instruction_handler_inst: special_instruction_handler
+-- port map (
+--   instructionIn    => specialInstructionCircuitInput,
+--   clk              => clk,
+--   instructionOut   => instructionOut,
+--   isSpecial        => isSpecial,
+--   stallCyclesCount => instrMaskedValue
+-- );
+
+
 counterWe <= instrMaskedValue(1) OR instrMaskedValue(0);
 
-counter_enable <= not stall_flush_counter; 
-
-u9 : counter PORT MAP(clk, reset, counterWe, instrMaskedValue(1 DOWNTO 0), counterResult, next_count,counter_enable);
+u9 : counter PORT MAP(clk, reset, counterWe, instrMaskedValue(1 DOWNTO 0), counterResult);
 END fetch_stage_architecture;

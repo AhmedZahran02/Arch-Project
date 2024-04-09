@@ -1,3 +1,5 @@
+import sys
+
 instructions = {
     'NOP': '00000',
     'NOT': '00001',
@@ -28,9 +30,13 @@ instructions = {
     'JZ': '11010',
     'JMP': '11011',
     'CALL': '11100',
-    'RET': '11101'
+    'RET': '11101',
+    'SWAP': '11110',
+    'RTI': '11111'
 }
-
+# Imm = [
+#     'ADDI','BITSET','RCL','RCR','LDM'
+# ]
 last_2_bits = {
     'NOP': '00',
     'NOT': '00',
@@ -46,9 +52,9 @@ last_2_bits = {
     'OR': '00',
     'XOR': '00',
     'CMP': '00',
-    'BITSET': '00',
-    'RCL': '00',
-    'RCR': '00',
+    'BITSET': '01',
+    'RCL': '01',
+    'RCR': '01',
     'PUSH': '00',
     'POP': '00',
     'PUSHF': '00',
@@ -61,7 +67,9 @@ last_2_bits = {
     'JZ': '01',
     'JMP': '01',
     'CALL': '01',
-    'RET': '11'
+    'RET': '11',
+    'SWAP': '00',
+    'RTI': '11'
 }
 
 registers = {
@@ -75,119 +83,172 @@ registers = {
     'R7': '111',
 }
 
-
 def assemble(file_path):
     # Dictionary for storing the memory contents
+    mode = False
     memory = {}
-
     current_address = None
+    dataMemory = {}
+    data_address = None
 
-    with open(file_path, 'r') as f:
+    with open(file_path, '+r') as f:
         for line in f:
+            # Uppercase the line for Consistency
+            line = line.upper()
             # Ignore lines starting with '#' and empty lines
             if line.startswith('#') or not line.strip():
                 continue
 
             # Remove comments from the line
             line = line.split('#')[0].strip()
-
-            # Check if the line starts with a numeric value
-            if line.lstrip()[0].isdigit():
+            
+            # handle mode
+            if line.startswith('.DATA'):
+                mode = True
                 continue
-
-            # Parse directives
+            
+            if line.startswith('.CODE'):
+                mode = False
+                continue
+            
+            # Skipppp directives
             if line.startswith('.ORG'):
-                current_address = int(line.split()[1], 16)
+                if mode:
+                    data_address = int(line.split()[1], 16)
+                else :
+                    current_address = int(line.split()[1], 16)
                 continue
-
-            # Parse instructions
-            tokens = line.strip().split()
-            if not tokens:
-                continue
-
-            instruction = tokens[0].upper()
-            args = tokens[1:] if len(tokens) > 1 else []
-
-            print(f"args {args}")
-
-            # Check if the instruction is recognized
-            if instruction not in instructions:
-                print(f"Error: Unrecognized instruction '{instruction}'")
-                return
-
-            # Ensure consistency in formatting
-            formatted_args = [arg.replace(',', '').strip() for arg in args]
-
-            # Split the first element of args if it contains commas
-            if formatted_args:
-                if instruction in ['NOT', 'NEG', 'INC', 'DEC', 'OUT', 'IN', 'PUSH', 'POP']:
-                    Rdst = formatted_args[0] if formatted_args else 'R0'
-                    Rsrc1 = 'R0'
-                    Rsrc2 = 'R0'
-
-                elif instruction in ['PROTECT', 'FREE']:
-                    Rdst = 'R0'
-                    Rsrc1 = formatted_args[0] if formatted_args else 'R0'
-                    Rsrc2 = 'R0'
-
-                elif instruction in ['CMP']:
-                    Rdst = 'R0'
-                    Rsrc1 = formatted_args[0] if formatted_args else 'R0'
-                    Rsrc2 = formatted_args[1] if len(formatted_args) > 1 else 'R0'
-
-                elif instruction in ['BITSET']:
-                    Rdst = formatted_args[0] if formatted_args else 'R0'
-                    Rsrc1 = 'R0'
-                    Rsrc2 = 'R0'
-
-                elif instruction in ['RCL','RCR']:
-                    Rdst = 'R0'
-                    Rsrc1 = formatted_args[0] if formatted_args else 'R0'
-                    Rsrc2 = 'R0'
-                    
-                else:
-                    Rdst = formatted_args[0] if formatted_args else 'R0'
-                    Rsrc1 = formatted_args[1] if len(formatted_args) > 1 and args[-1].isdigit() == False else 'R0'
-                    Rsrc2 = formatted_args[2] if len(formatted_args) > 2 and args[-1].isdigit() == False else 'R0'
+            
+            if mode:
+                [data_address,dataMemory]=handleMemory(line,dataMemory,data_address)
             else:
-                Rdst, Rsrc1, Rsrc2 = 'R0', 'R0', 'R0'  # Provide default registers if args is empty
+                [current_address,memory]=handleInstruction(line,memory,current_address)
+
+    return [memory,dataMemory]
+
+def handleInstruction(line,memory,current_address):
+    if len(line) == 0:
+        return [current_address,memory]
+    # Check if the line starts with a numeric value
+    if line.lstrip()[0].isdigit():
+        return [current_address,memory]
+    
+    # Parse instructions
+    tokens  = [elem.replace(',',' ').strip() for elem in line.split(' ')]
+    new_tokens = [item for token in tokens for item in (token.split() if ' ' in token else [token])]
+
+    tokens= new_tokens
+    # print(f"tokens {tokens}")
+    if not tokens:
+        return {current_address,memory}
+
+    instruction = tokens[0].upper()
+    args = tokens[1:] if len(tokens) > 1 else []
 
 
-            machine_code = instructions[instruction] + registers[Rdst] + registers[Rsrc1] + registers[Rsrc2]
+    # Check if the instruction is recognized
+    if instruction not in instructions:
+        print(f"Error: Unrecognized instruction '{instruction}'")
+        return [None,None]
 
-            if instruction in last_2_bits:
-                machine_code += last_2_bits[instruction]
+    # Ensure consistency in formatting
+    formatted_args = [arg for arg in args if arg.strip()]
+    # print(f"formatted_args {formatted_args}")
 
-            # Store the machine code in memory
-            memory[current_address] = machine_code
-            current_address += 2
+    # Split the first element of args if it contains commas
+    if formatted_args:
+        # Assuming Rsrc1 and Rsrc2 are arguments in positions 1 and 2
+        Rdst = formatted_args[0] if formatted_args else 'R0'
+        Rsrc1 = formatted_args[1] if len(formatted_args) > 1 and formatted_args[1].isdigit() == False else Rdst
+        Rsrc2 = formatted_args[2] if len(formatted_args) > 2 and args[-1].isdigit() == False else Rdst
+    else:
+        Rdst, Rsrc1, Rsrc2 = 'R0', 'R0', 'R0' 
 
-            # Handle the imm value
-            if formatted_args and formatted_args[-1].isdigit():
-                # Handle immediate value separately
-                imm_value = int(formatted_args[-1])
-                imm_instruction = format(imm_value, '016b')
+    # Handle swap
+    if instruction == "SWAP":
+        machine_code = instructions[instruction] + registers['R0'] + registers[Rdst] + registers[Rsrc1]
+    else:
+        machine_code = instructions[instruction] + registers[Rdst] + registers[Rsrc1] + registers[Rsrc2]
 
-                memory[current_address] = imm_instruction
-                current_address += 2  # Assuming 2 bytes per instruction
+    if instruction in last_2_bits:
+        machine_code += last_2_bits[instruction]
 
-    return memory
+    # Store the machine code in memory
+    if current_address is None : current_address = 0
+    memory[current_address] = machine_code
+    current_address += 1
+
+    # Handle the imm value
+    if formatted_args and formatted_args[-1].isdigit():
+        # Handle immediate value separately
+        imm_value = int(formatted_args[-1])
+        imm_instruction = format(imm_value, '020b')
+
+        if instruction == "STD" or instruction == "LDD":
+            memory[current_address - 1] = instructions[instruction] + registers[Rdst] +  imm_instruction[0:4] + "00" + last_2_bits[instruction]
+
+        memory[current_address] = imm_instruction[4:]
+        current_address += 1  # Assuming 2 bytes per instruction -- edited because instruction is 16 bit only
+    return [current_address,memory]
+
+def handleMemory(line,dataMemory,data_address):
+    if(data_address is None):
+        data_address=0
+    data = format(int(line), '032b')
+    part1 = data[:16]
+    part2 = data[16:]
+    dataMemory[data_address] = part1
+    dataMemory[data_address+1] = part2
+    data_address += 2
+    return [data_address,dataMemory]
+
+def make_memory_file(memory, out_file):
+    data_out = ['0000000000000000 0' for _ in range(4096)]
+    splited_memory = memory.split('\n')
+    for line in splited_memory:
+        if len(line) == 0: 
+            continue
+        params = line.split('\t')
+        data_out[int(params[0], 16)] = params[1] + " 0"
+
+    with open(out_file,"+w") as f:
+        for i in range(len(data_out)):
+            if i == len(data_out) - 1:
+                f.write(data_out[i])
+            else: 
+                f.write(data_out[i] + '\n')
 
 
-
-def write_to_file(memory, output_file='out.txt'):
+def write_to_file(memory,dataMemory, output_file='out.txt'):
     if memory is None:
         print("Error during assembly. Cannot write to file.")
         return
 
-    with open(output_file, 'w') as out_file:
-        for address, machine_code in sorted(memory.items()):
-            out_file.write(f"{machine_code}\n")
-            #out_file.write(f"{hex(address)[2:]}: {machine_code}\n")
+    out_buffer = ""
+    for address, machine_code in sorted(memory.items()):
+        out_buffer += f"{hex(address)[2:]}\t{machine_code}\n"
+    make_memory_file(out_buffer,"../instructions.txt")
+    
+    if dataMemory is None:
+        print("Error during assembly. Cannot write to file.")
+        return
+
+    out_buffer = ""
+    for data_address, data in sorted(dataMemory.items()):
+        out_buffer += f"{hex(data_address)[2:]}\t{data}\n"
+    make_memory_file(out_buffer,"../data.txt")
 
 
-file_path = 'inst2.asm'
-memory_contents = assemble(file_path)
 
-if memory_contents is not None:
-    write_to_file(memory_contents)
+
+# read the file path from the command line arguments
+        
+if len(sys.argv ) < 2:
+    print("assembly file path missing ...")
+    exit(0)           
+
+file_path = sys.argv[1]
+[memory,dataMemory] = assemble(file_path)
+
+if memory is not None:
+    write_to_file(memory,dataMemory)

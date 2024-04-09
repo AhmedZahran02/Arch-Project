@@ -65,7 +65,7 @@ WHEN "01110" =>
 controlSignals <= "1001000110000000000010";
 -- RCL
 WHEN "01111" =>
-controlSignals <= "1001000110100000000000";
+controlSignals <= "1001000110100000000010";
 -- RCR
 WHEN "10000" =>
 controlSignals <= "1001000111000000000010";
@@ -74,13 +74,13 @@ WHEN "10001" =>
 controlSignals <= "1000000000001100010000";
 -- POP
 WHEN "10010" =>
-controlSignals <= "1000000000001000000010";
+controlSignals <= "1000000000001000100010";
 -- PUSH FLAGS
 WHEN "10011" =>
-controlSignals <= "1000000000001100011000";
+controlSignals <= "1000000000001100111000";
 -- POP FLAGS
 WHEN "10100" =>
-controlSignals <= "1000000000001000000100";
+controlSignals <= "1000000000001000100100";
 -- LDM
 WHEN "10101" =>
 controlSignals <= "1010000011000000000010";
@@ -104,10 +104,16 @@ WHEN "11011" =>
 controlSignals <= "1000100000000000000000";
 -- CALL
 WHEN "11100" =>
-controlSignals <= "1100100000001100010000";
+controlSignals <= "1100100000001100110000";
 -- RET
 WHEN "11101" =>
-controlSignals <= "0000000000011000000000";
+controlSignals <= "0000000000011000100000";
+-- PUSH PC (internal instruction)
+WHEN "11110" =>
+controlSignals <= "1100000000001100110000";
+-- Special Xor (internal instruction)
+WHEN "11111" =>
+controlSignals <= "0000000111100000000010";
 WHEN OTHERS =>
 controlSignals <= (OTHERS => '0');
 END CASE;

@@ -22,7 +22,8 @@ entity execute_stage is
 
         current_flags : out std_logic_vector(3 downto 0);
         next_flags : out std_logic_vector(3 downto 0);
-        alu_result : out std_logic_vector(n - 1 downto 0)
+        alu_result : out std_logic_vector(n - 1 downto 0);
+        is_jump_zero : in std_logic
         );
     
 end entity execute_stage;
@@ -61,7 +62,9 @@ architecture execute_stage_arch of execute_stage is
 begin
 
 
-flag_register_input <= alu_flags_output when is_pop_flags_operation = '0' else memory_data_out(2 downto 0);
+flag_register_input <= alu_flags_output(2 downto 1) & '0' when is_pop_flags_operation = '0' and is_jump_zero = '1'
+                    else alu_flags_output when is_pop_flags_operation = '0'  
+                    else memory_data_out(2 downto 0);
 
 current_flags <= '0' & flag_register_output;
 next_flags <= '0' & flag_register_input;

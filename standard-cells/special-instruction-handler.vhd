@@ -5,61 +5,83 @@ USE IEEE.numeric_std.ALL;
 ENTITY special_instruction_handler IS
     PORT (
         instructionIn : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-        clk : IN STD_LOGIC;
+        clk, bypass: IN STD_LOGIC;
+        current_pc : in std_logic_vector(31 downto 0);
 
         --==================================================================
         instructionOut : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-        isSpecial : OUT STD_LOGIC
-
+        isSpecial : OUT STD_LOGIC;
+        stallCyclesCount : out std_logic_vector(1 downto 0)
     );
 END special_instruction_handler;
 ARCHITECTURE special_instruction_handler_architecture OF special_instruction_handler IS
-    SIGNAL isSwap : STD_LOGIC := '0';
-    SIGNAL isRet : STD_LOGIC := '0';
     SIGNAL nextInstruction : STD_LOGIC_VECTOR(15 DOWNTO 0);
     SIGNAL tempCount : INTEGER RANGE 0 TO 255 := 0;
-
+    SIGNAL currentState : std_logic_vector(3 downto 0) := "0000";
+    SIGNAL nextState : std_logic_vector(3 downto 0) := "0000";
+    SIGNAL previous_pc : std_logic_vector(31 downto 0) := (others => '0');
 BEGIN
+    stallCyclesCount <= std_logic_vector(to_unsigned(tempCount, 2));
+    instructionOut <= instructionIn when (currentState = "0000" or bypass = '1') ELSE nextInstruction;
 
-    instructionOut <= nextInstruction;
-    PROCESS (clk) -- this is async not sync
+    PROCESS (instructionIn, clk, bypass)
     BEGIN
+        IF bypass = '1' then 
+            currentState <= "0000";
+            isSpecial <= '0';
+            nextState <= "0000";
+        ELSIF instructionIn(15 DOWNTO 11) = "11110" and currentState = "0000" and previous_pc /= current_pc THEN
+            isSpecial <= '1';
+            tempCount <= 2;
+            previous_pc <= current_pc;
+            currentState <= "0001";
+            nextState <= "0001";
+            nextInstruction <= "11111" & instructionIn(7 downto 5) & instructionIn(7 downto 5) & instructionIn(4 downto 2) & "00";
+        -- Ret Operation Detected
+        elsif instructionIn(15 DOWNTO 11) = "11111" and currentState = "0000" and previous_pc /= current_pc THEN
+            isSpecial <= '1';
+            tempCount <= 1;          
+            previous_pc <= current_pc;  
+            currentState <= "1001";
+            nextState <= "1001";
+            nextInstruction <= "1110100000000000"; -- ret
+        elsif falling_edge(clk) then
+            currentState <= nextState;
+            previous_pc <= current_pc;
+            if tempCount > 0 then
+                tempCount <= tempCount - 1;
+            end if;
+        elsif rising_edge(clk) then  
+            previous_pc <= current_pc; 
+            CASE currentState is
+                -- swap
+                when "0001" =>
+                    nextState <= "0010";
+                    isSpecial <= '1';
+                    nextInstruction <= "11111" & instructionIn(4 downto 2) & instructionIn(7 downto 5) & instructionIn(4 downto 2) & "00";
+    
+                when "0010" =>
+                    nextState <= "0011";
+                    isSpecial <= '1';
+                    nextInstruction <= "11111" & instructionIn(7 downto 5) & instructionIn(7 downto 5) & instructionIn(4 downto 2) & "00";
 
-        IF rising_edge(clk) THEN
-            IF isSwap = '1' THEN
-                IF tempCount = 0 THEN
-                    nextInstruction <= "01100" & instructionIn(4 downto 2) & instructionIn(7 downto 5) & instructionIn(4 downto 2) & "00";
-                    tempCount <= tempCount + 1;
-                ELSIF tempCount = 1 THEN
-                    nextInstruction <= "01100" & instructionIn(7 downto 5) & instructionIn(7 downto 5) & instructionIn(4 downto 2) & "00";
-                    tempCount <= tempCount + 1;
+                when "0011" =>
+                    nextState <= "0000";
                     isSpecial <= '0';
-                    isSwap <= '0';
-            -- Swap Operation Detected
-                END IF;
-            ELSIF isRet = '1' THEN
-                IF tempCount = 0 THEN
-                    nextInstruction <= "1110100000000000";
-                    tempCount <= tempCount + 1;
-                    isRet <= '0';
+
+                when "1001" =>
+                    nextState <= "0011";
+                    isSpecial <= '1';
+                    nextInstruction <= "1010000000000010";
+
+
+                when others =>
+                    nextState <= "0000";
+                    nextInstruction <= instructionIn;
                     isSpecial <= '0';
-                END IF;
-            -- Swap Operation Detected
-            ELSIF instructionIn(15 DOWNTO 11) = "11110" THEN
-                isSpecial <= '1';
-                isSwap <= '1';
-                tempCount <= 0;
-                nextInstruction <= "01100" & instructionIn(7 downto 5) & instructionIn(7 downto 5) & instructionIn(4 downto 2) & "00";
-            -- Ret Operation Detected
-            ELSIF instructionIn(15 DOWNTO 11) = "11111" THEN
-                isSpecial <= '1';
-                isRet <= '1';
-                tempCount <= 0;
-                nextInstruction <= "1010000000000000";
-            ELSE
-                nextInstruction <= instructionIn;
-            END IF;
-        END IF;
+            end case;
+
+        end if;
+
     END PROCESS;
-
 END special_instruction_handler_architecture;

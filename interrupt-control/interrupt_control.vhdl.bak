@@ -12,9 +12,7 @@ globalReset, forceInstruction, takeMemoryControl, forcePc : OUT STD_LOGIC;
 nextInstruction : OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
 nextPc : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
 nextAddress : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-haltPc : OUT STD_LOGIC;
-jump_occured : in std_logic;
-decreament_signal : out std_logic
+haltPc : OUT STD_LOGIC
 );
 END interrupt_control;
 
@@ -47,7 +45,7 @@ END COMPONENT;
 
 SIGNAL instructionMargin : std_logic_vector(1 downto 0);
 SIGNAL currentState, nextState : STD_LOGIC_VECTOR(3 DOWNTO 0);
-SIGNAL We1, regRst1, We2, regRst2, decreament_pc: STD_LOGIC;
+SIGNAL We1, regRst1, We2, regRst2 : STD_LOGIC;
 SIGNAL regOut1, RegOut2 : STD_LOGIC_VECTOR(31 DOWNTO 0);
 
 BEGIN
@@ -69,14 +67,12 @@ BEGIN
         instructionMargin <= "00";
         nextPc <= (others => '0');
         globalReset <= '1';
-        decreament_signal <= '0';
         We1 <= '0';
         We2 <= '0';
     ELSIF int = '1' and nextState = "0011" THEN
         nextState <= "0111";
         currentState <= "0111";
         instructionMargin <= waitFor;
-        decreament_pc <= jump_occured;
         if waitFor = "00" then
             haltPc <= '1';
         else 
@@ -106,7 +102,7 @@ BEGIN
             
             -- int scenario
             when "0111" =>
-                IF instructionMargin > "01" then
+                IF instructionMargin /= "01" then
                     nextState <= "0111";
                     instructionMargin <= instructionMargin - 1;
                     haltPc <= '1';
@@ -121,14 +117,12 @@ BEGIN
             when "1000" => 
                 nextState <= "1001";
                 forcePc <= '1';
+                haltPc <= '0';
                 nextPc <= RegOut2;
-                decreament_signal <= decreament_pc;
                 nextInstruction <= "1111000000000000"; -- push pc instruction
             
             when "1001" =>
                 nextState <= "0011";
-                decreament_signal <= '0';
-                haltPc <= '0';
                 forcePc <= '0';
                 forceInstruction <= '0';
 

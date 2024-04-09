@@ -1,0 +1,205 @@
+.data
+0
+500
+10
+26
+
+.code 
+NOP
+LDD R0,4        # R0 = 10
+LDD R1,6        # R1 = 26
+SUB R2,R1,R0    # R2 = 16
+CMP R2,R1       # zero flag must be zero
+JMP R2          # PC = 16
+OUT R2          # R2 = 5
+
+.ORG 10
+XOR R2,R2,R2    # R2 = 0, zero flag = 1
+STD R1,50       # [50] = 26
+LDM R1,50       # R1 = 50
+PROTECT R1      # [50] is protected
+STD R0,50       # [50] = 26 not changed
+LDD R0,50       # R0 = [50] = 26
+XOR R0,R0,R0    # R0 = 0
+BITSET R0,5     # R0 = 32
+ADD R5,R5,R5    # to make the carry flag = 0
+RCR R0,2        # R0 = 8
+RCL R0,3        # R0 = 64
+
+===================================================================
+testing jump zero 
+
+.data
+0
+500
+
+19
+20
+50
+1
+2
+
+.code 
+LDD R0,4    # R0 = 19
+LDD R1,6    # R1 = 20
+LDD R2,8    # R2 = 50
+LDD R3,10   # R3 = 1
+LDD R4,12   # R4 = 2
+
+CMP R0,R1
+JZ R2 # shouldn't be taken
+OUT R3
+
+CMP R0,R0
+JZ R2 # should be taken 
+OUT R1
+
+.ORG 32
+OUT R4
+
+
+
+===================================================================
+
+.data
+0
+500
+10
+26
+
+.code 
+ldm R1 , 15         # R1 = 15
+push R1             # [SP] = 15
+ldm R1 , 17         # R1 = 17
+ldm R2 , 0          # R2 = 0
+pop R1              # R1 = 15
+add R2 , R1 , R2    # R2 = 15
+
+===================================================================
+.data
+0
+500
+
+4294967295
+20
+50
+1
+2
+
+.code 
+LDD R0,4 # R0 = 2^32 - 1 or 32 ones 
+NOT R0 # R0 = 0
+ADDI R0,R0,1 # R0 = 1
+INC R0  # R0 = 2
+DEC R1  # R1 = 2^32 - 1
+NEG R1  # R1 = 1
+IN R2   # R2 = in port value
+INC R1  # R1 = 2
+OR R3,R1,R0 # R3 = 2
+AND R3,R3,R0   # R3 = 2
+
+.ORG 1f5
+RTI
+
+
+=====================================================================
+.data
+0
+500
+
+20
+50
+1
+2
+
+.code 
+LDM R0,10
+LDM R1,20
+LDM R2,30
+
+STD R1,20 # [20] = 20
+PROTECT R1 # [20] protected
+STD R2,20   # [20] = 20 not changed
+LDD R3,20   # R3 = [20] = 20
+OUT R3      # OUT = 20
+FREE R1     # [20] = 0 freed
+LDD R3,20   # R3 = [20] = 0
+STD R2,20   # [20] = 30
+LDD R3,20   # R3 = [20] = 30
+OUT R3      # OUT = 30
+
+
+.ORG 1F4
+RTI
+=============================================================
+.data
+0
+500
+
+20
+50
+1
+2
+
+.code 
+NOP
+LDM R0,16   # R0 = 16
+PUSH R0
+CALL R0     
+JMP R1
+
+
+.ORG 10
+POP R3          # R3 = 5
+POP R2          # R2 = 16
+PUSH R3        
+ADD R1,R0,R2    # R1 = 32
+RET
+
+.ORG 1F4
+RTI
+
+==============================================================
+.data
+0
+500
+10
+26
+
+.code 
+NOP
+LDM R0,20
+LDM R1,40
+SWAP R0,R1
+SWAP R0,R2
+
+
+.org 1f4
+LDM R2,50
+RTI
+==================================================================
+.data
+0
+500
+
+5
+
+1
+2
+3
+4
+5
+
+.code 
+LDM R0,6
+LDM R2,1
+LDM R1,10
+
+DEC R1
+CMP R1,R1
+JZ R0
+
+OUT R0
+
+.org 1f4
+RTI

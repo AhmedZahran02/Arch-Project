@@ -99,7 +99,7 @@ begin
     when inc_dec_stack = '0' 
     else std_logic_vector(unsigned(stack_pointer_out) - to_unsigned(SP_STEP, stack_pointer_out'length));
     
-    memory_data_result <= memory_data_out when reset = '0' else (others => '0');
+    memory_data_result <= memory_data_out;
 
     final_data <= (others => '0') when reset = '1' else 
                   memory_data_out when memory_operation = '1' else 
